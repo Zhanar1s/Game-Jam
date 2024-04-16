@@ -43,9 +43,6 @@ width = 170
 height = 201
 speed = 5
 
-#isJump = False
-#jumpCount = 5
-
 left = False
 right = False
 up = False
@@ -116,17 +113,5 @@ while run:
         right = False
         animCount = 0
 
-    #if not(isJump):
-        #if keys[pygame.K_SPACE]:
-            #isJump = True
-    #else:
-        #if jumpCount >= -5:
-            #if jumpCount < 0:
-               # y += (jumpCount**2)/2
-           # else:
-               # y -= (jumpCount**2)/2
-            #jumpCount -= 1
-        #else:
-            #isJump = False
-           # jumpCount = 5
+
     drawWindow()
