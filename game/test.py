@@ -12,9 +12,9 @@ walkRight = [
 ]
 
 walkUp = [
-    pygame.transform.scale(pygame.image.load('images/sprites/Boy/back/1.png'),(170,201)),
-    pygame.transform.scale(pygame.image.load('images/sprites/Boy/back/2.png'),(170,201)),
-    pygame.transform.scale(pygame.image.load('images/sprites/Boy/back/3.png'),(170, 201))
+    pygame.transform.scale(pygame.image.load('images/sprites/Boy/back/1.png'),(125,201)),
+    pygame.transform.scale(pygame.image.load('images/sprites/Boy/back/2.png'),(125,201)),
+    pygame.transform.scale(pygame.image.load('images/sprites/Boy/back/3.png'),(125, 201))
 ]
 
 walkLeft = [
@@ -27,12 +27,16 @@ walkLeft = [
 ]
 
 walkDown = [
-    pygame.transform.scale(pygame.image.load('images/sprites/Boy/face/1.png'),(170,201)),
-    pygame.transform.scale(pygame.image.load('images/sprites/Boy/face/2.png'),(170,201)),
-    pygame.transform.scale(pygame.image.load('images/sprites/Boy/face/3.png'),(170, 201))
+    pygame.transform.scale(pygame.image.load('images/sprites/Boy/face/1.png'),(125,201)),
+    pygame.transform.scale(pygame.image.load('images/sprites/Boy/face/2.png'),(125,201)),
+    pygame.transform.scale(pygame.image.load('images/sprites/Boy/face/3.png'),(125, 201))
 ]
+
+
+
 bg = pygame.transform.scale(pygame.image.load('images/background.png'), (1200, 600))
-playerStand = pygame.transform.scale(pygame.image.load('images/sprites/Boy/face/1.png'), (170, 201))
+playerStand = pygame.transform.scale(pygame.image.load('images/sprites/Boy/face/1.png'), (125, 201))
+
 
 clock = pygame.time.Clock()
 
@@ -42,9 +46,6 @@ y = 380
 width = 170
 height = 201
 speed = 5
-
-#isJump = False
-#jumpCount = 5
 
 left = False
 right = False
@@ -60,16 +61,16 @@ def drawWindow():
         animCount = 0
 
     if left:
-        win.blit(walkLeft[animCount // 5], (x, y))
+        win.blit(walkLeft[animCount // 6], (x, y))
         animCount += 1
     elif right:
-        win.blit(walkRight[animCount // 5], (x, y))
+        win.blit(walkRight[animCount // 6], (x, y))
         animCount += 1
     elif up:
-        win.blit(walkUp[animCount // 3], (x, y))
+        win.blit(walkUp[animCount // 10], (x, y))
         animCount += 1
     elif down:
-        win.blit(walkDown[animCount // 3], (x, y))
+        win.blit(walkDown[animCount // 10], (x, y))
         animCount += 1
     else:
         win.blit(playerStand, (x, y))
@@ -116,17 +117,5 @@ while run:
         right = False
         animCount = 0
 
-    #if not(isJump):
-        #if keys[pygame.K_SPACE]:
-            #isJump = True
-    #else:
-        #if jumpCount >= -5:
-            #if jumpCount < 0:
-               # y += (jumpCount**2)/2
-           # else:
-               # y -= (jumpCount**2)/2
-            #jumpCount -= 1
-        #else:
-            #isJump = False
-           # jumpCount = 5
+
     drawWindow()
