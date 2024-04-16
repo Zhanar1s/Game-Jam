@@ -3,33 +3,33 @@ pygame.init()
 win = pygame.display.set_mode((1200, 600))
 
 walkRight = [
-	pygame.transform.scale(pygame.image.load('images/boy_right.png'),(125,156)),
-    pygame.transform.scale(pygame.image.load('images/boy_right_1.png'),(125,156)),
-    pygame.transform.scale(pygame.image.load('images/boy_right_2.png'),(125, 156)),
-    pygame.transform.scale(pygame.image.load('images/boy_left.png'),(125, 156)),pygame.transform.scale(pygame.image.load('images/boy_left_1.png'),(125, 156)),
-    pygame.transform.scale(pygame.image.load('images/boy_left_2.png'), (125, 156)),
+	pygame.transform.scale(pygame.image.load('images/boy_right/boy_right.png'),(170,201)),
+    pygame.transform.scale(pygame.image.load('images/boy_right/boy_right_1.png'),(170,201)),
+    pygame.transform.scale(pygame.image.load('images/boy_right/boy_right_2.png'),(170, 201)),
+    pygame.transform.scale(pygame.image.load('images/boy_right/boy_right_3.png'),(170, 201)),pygame.transform.scale(pygame.image.load('images/boy_right/boy_right_4.png'),(170, 201)),
+    pygame.transform.scale(pygame.image.load('images/boy_right/boy_right_5.png'), (170, 201)),
 
 ]
 
 walkLeft = [
-    pygame.transform.scale(pygame.image.load('images/boy_right.png'),(125,156)),
-    pygame.transform.scale(pygame.image.load('images/boy_right_1.png'),(125,156)),
-    pygame.transform.scale(pygame.image.load('images/boy_right_2.png'),(125, 156)),
-    pygame.transform.scale(pygame.image.load('images/boy_left.png'),(125, 156)),pygame.transform.scale(pygame.image.load('images/boy_left_1.png'),(125, 156)),
-    pygame.transform.scale(pygame.image.load('images/boy_left_2.png'), (125, 156)),
+    pygame.transform.scale(pygame.image.load('images/boy_left/boy_left.png'),(170,201)),
+    pygame.transform.scale(pygame.image.load('images/boy_left/boy_left_1.png'),(170,201)),
+    pygame.transform.scale(pygame.image.load('images/boy_left/boy_left_2.png'),(170, 201)),
+    pygame.transform.scale(pygame.image.load('images/boy_left/boy_left_3.png'),(170, 201)),pygame.transform.scale(pygame.image.load('images/boy_left/boy_left_4.png'),(170, 201)),
+    pygame.transform.scale(pygame.image.load('images/boy_left/boy_left_5.png'), (170, 201)),
 
 ]
 
 bg = pygame.image.load('images/backround.jpg')
-playerStand = pygame.transform.scale(pygame.image.load('images/boy.png'), (125, 156))
+playerStand = pygame.transform.scale(pygame.image.load('images/boy.png'), (170, 201))
 
 clock = pygame.time.Clock()
 
 
 x = 50
-y = 425
-width = 125
-height = 156
+y = 380
+width = 170
+height = 201
 speed = 5
 
 isJump = False
