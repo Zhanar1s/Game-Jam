@@ -20,7 +20,7 @@ walkLeft = [
 
 ]
 
-bg = pygame.image.load('images/backround.jpg')
+bg = pygame.transform.scale(pygame.image.load('images/background.png'), (1200, 600))
 playerStand = pygame.transform.scale(pygame.image.load('images/boy.png'), (170, 201))
 
 clock = pygame.time.Clock()
@@ -32,8 +32,8 @@ width = 170
 height = 201
 speed = 5
 
-isJump = False
-jumpCount = 5
+#isJump = False
+#jumpCount = 5
 
 left = False
 right = False
@@ -81,17 +81,17 @@ while run:
         right = False
         animCount = 0
 
-    if not(isJump):
-        if keys[pygame.K_SPACE]:
-            isJump = True
-    else:
-        if jumpCount >= -5:
-            if jumpCount < 0:
-                y += (jumpCount**2)/2
-            else:
-                y -= (jumpCount**2)/2
-            jumpCount -= 1
-        else:
-            isJump = False
-            jumpCount = 5
+    #if not(isJump):
+        #if keys[pygame.K_SPACE]:
+            #isJump = True
+    #else:
+        #if jumpCount >= -5:
+            #if jumpCount < 0:
+               # y += (jumpCount**2)/2
+           # else:
+               # y -= (jumpCount**2)/2
+            #jumpCount -= 1
+        #else:
+            #isJump = False
+           # jumpCount = 5
     drawWindow()
