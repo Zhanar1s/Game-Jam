@@ -72,12 +72,6 @@ def drawWindow():
     elif down:
         win.blit(walkDown[animCount // 10], (x, y))
         animCount += 1
-    elif up:
-        win.blit(walkUp[animCount // 3], (x, y))
-        animCount += 1
-    elif down:
-        win.blit(walkDown[animCount // 3], (x, y))
-        animCount += 1
     else:
         win.blit(playerStand, (x, y))
 
