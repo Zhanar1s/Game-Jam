@@ -1,6 +1,10 @@
 import pygame
 pygame.init()
-win = pygame.display.set_mode((1200, 600))
+# Screen 
+WIDTH = 1200
+HEIGHT = 600
+
+win = pygame.display.set_mode((WIDTH, HEIGHT))
 
 walkRight = [
 	pygame.transform.scale(pygame.image.load('images/sprites/Boy/right/1.png'),(170,201)),
@@ -93,7 +97,7 @@ while run:
         right = False
         up = False
         down = False
-    elif keys[pygame.K_RIGHT] and x < 1200 - width - 5:
+    elif keys[pygame.K_RIGHT] and x < WIDTH - width - 5:
         x += speed
         left = False
         right = True
@@ -105,7 +109,7 @@ while run:
         right = False
         up = True
         down = False
-    elif keys[pygame.K_DOWN] and y < 600 - height - 5:
+    elif keys[pygame.K_DOWN] and y < HEIGHT - height - 5:
         y += speed
         left = False
         right = False
