@@ -43,7 +43,8 @@ class Player(pygame.sprite.Sprite):
         #self.down
 
 
-    def move(self, pressed):
+    def move(self, pressed, all_objects):
+
         if pressed[pygame.K_UP]:
             for key in self.moving.keys():
                 self.moving[key] = False
@@ -93,18 +94,38 @@ class Player(pygame.sprite.Sprite):
             self.screen.blit(self.default_image, (self.rect.x, self.rect.y))
 
 
-class Wall:
-    def __init__(self, topleft, size, color):
-        self.color = color
-        self.x = topleft[0]
-        self.y = topleft[1]
-        self.width = size[0]
-        self.height = size[1]
-        self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
+# class Wall:
+#     def __init__(self, topleft, size, color):
+#         self.color = color
+#         self.x = topleft[0]
+#         self.y = topleft[1]
+#         self.width = size[0]
+#         self.height = size[1]
+#         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
 
-    def place(self, screen):
-        pygame.draw.rect(screen, self.color, self.rect)
+#     def place(self, screen):
+#         pygame.draw.rect(screen, self.color, self.rect)
 
 
             
+class Door():
+    def __init__(self, screen, pos):
+        self.screen = screen
 
+        self.closed_image = pygame.image.load("images/door/door (1).png")
+        self.open_image = pygame.image.load("images/door/door (2).png")
+        self.opened = False
+        self.current_image = self.closed_image
+
+        self.pos = pos
+        self.rect = self.current_image.get_rect(topleft=pos)
+
+    def blit(self):
+        self.screen.blit(self.current_image, self.rect)
+
+    def open_door(self, player):
+        if not self.opened:
+            self.current_image = self.open_image
+        else:
+            self.closed_image = self.closed_image
+    

@@ -131,7 +131,7 @@ def settings(screen, bgm_channel, sfx_channel):
         for event in pygame.event.get():
             #if we want to quit or return, we do not use quit or exit because we still need to write the stats to the json file
             if event.type == pygame.QUIT:
-                back = True
+                exit()
             if event.type == pygame.MOUSEBUTTONDOWN and (back_trio.collidepoint(event.pos) or back_rect.collidepoint(event.pos)):
                 back = True
         screen.fill((0,0,0))
@@ -201,10 +201,10 @@ def game_menu(bgm_channel : pygame.mixer.Channel, sfx_channel : pygame.mixer.Cha
     while loop:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
-                return False
+                exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if exit_button.rect.collidepoint(event.pos):
-                    return False
+                    exit()
                 if play_button.rect.collidepoint(event.pos):
                     loop = False
                     
