@@ -38,9 +38,15 @@ walkDown = [
 bg = pygame.transform.scale(pygame.image.load('images/background.png'), (1200, 600))
 bg1 = pygame.transform.scale(pygame.image.load('images/i.png'), (1200, 600))
 playerStand = pygame.transform.scale(pygame.image.load('images/sprites/Boy/face/1.png'), (125, 201))
+<<<<<<< HEAD
 door = pygame.transform.scale(pygame.image.load('images/door/door (1).png'), (220, 285))
 win.blit(door, (500, 500))
 door_open = pygame.transform.scale(pygame.image.load('images/door/door (2).png'), (220, 285))
+=======
+door = pygame.transform.scale(pygame.image.load('images/door/door (1).png'), (160, 285))
+win.blit(door, (500, 500))
+door_open = pygame.transform.scale(pygame.image.load('images/door/door (2).png'), (160, 285))
+>>>>>>> 0bc9e7f337299b5c72802cc9786a8649a6b19f93
 in_door_open = False
 
 
@@ -65,8 +71,13 @@ def drawWindow():
 
 
     if in_door_open:
+<<<<<<< HEAD
         win.blit(bg1, (0, 0))
         #win.blit(door_open, (900, 100))
+=======
+        win.blit(bg, (0, 0))
+        win.blit(door_open, (1000, 100))
+>>>>>>> 0bc9e7f337299b5c72802cc9786a8649a6b19f93
 
     else:
         win.blit(bg, (0, 0))

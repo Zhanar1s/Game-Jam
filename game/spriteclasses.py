@@ -29,7 +29,11 @@ class Player(pygame.sprite.Sprite):
         self.default_image = self.walk_face_images[0]
         self.rect = self.default_image.get_rect(center = pos)
 
+<<<<<<< HEAD
         self.speed = 3
+=======
+        self.speed = 4
+>>>>>>> 0bc9e7f337299b5c72802cc9786a8649a6b19f93
 
         self.moving = {
                 "left" : False,
