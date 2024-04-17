@@ -1,4 +1,5 @@
 import pygame
+import time
 pygame.init()
 win = pygame.display.set_mode((1200, 600))
 
@@ -35,11 +36,13 @@ walkDown = [
 
 
 bg = pygame.transform.scale(pygame.image.load('images/background.png'), (1200, 600))
+bg1 = pygame.transform.scale(pygame.image.load('images/i.png'), (1200, 600))
 playerStand = pygame.transform.scale(pygame.image.load('images/sprites/Boy/face/1.png'), (125, 201))
-door = pygame.transform.scale(pygame.image.load('images/door_close.png'), (150, 250))
+door = pygame.transform.scale(pygame.image.load('images/door/door (1).png'), (220, 285))
 win.blit(door, (500, 500))
-door_open = pygame.transform.scale(pygame.image.load('images/door_open.png'), (150, 250))
+door_open = pygame.transform.scale(pygame.image.load('images/door/door (2).png'), (220, 285))
 in_door_open = False
+
 
 clock = pygame.time.Clock()
 
@@ -57,17 +60,17 @@ down = False
 animCount = 0
 
 def drawWindow():
-    global in_room2
+    global in_door_open
     global animCount
 
 
     if in_door_open:
-        win.blit(bg, (0, 0))
-        win.blit(door_open, (900, 100))
+        win.blit(bg1, (0, 0))
+        #win.blit(door_open, (900, 100))
 
     else:
         win.blit(bg, (0, 0))
-        win.blit(door, (1000, 100))
+        win.blit(door, (900, 100))
 
     if animCount + 1 >= 30:
         animCount = 0
@@ -103,8 +106,14 @@ while run:
         if event.type == pygame.QUIT:
             run = False
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_e and (x > 950) and (y < 151) :
+            if event.key == pygame.K_e and (x > 900) and (y < 151):
+                win.blit(door_open, (900, 100))
+                pygame.display.update()
+                time.sleep(1)
                 in_door_open = not in_door_open
+                if in_door_open:
+                    x, y = 50, 380
+
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT] and x > 5:
