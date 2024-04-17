@@ -19,7 +19,6 @@ class Interactable(pygame.sprite.Sprite):
     def interaction(self, player, screen, pressed):
         if self.enable and player.rect.colliderect(self.rect):
         #if self.enable and player.rect.colliderect(self.rect):
-            player.moving = False
             if self.done and self.text_index < len(self.text) - 1 and pressed[pygame.K_z]:
                 self.text_index += 1
                 self.done = False
@@ -27,7 +26,6 @@ class Interactable(pygame.sprite.Sprite):
             self.print_out(screen)
         else:
             self.enable = False
-            player.moving = True
             self.text_clock = 0
 
 
