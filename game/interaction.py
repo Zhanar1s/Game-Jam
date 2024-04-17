@@ -1,14 +1,22 @@
 
 import pygame
+import json
+import re
 pygame.init()
 
+with open("text/dialogs.json", "r") as json_data:
+    dialog_data = json.load(json_data)
+
 class Interactable(pygame.sprite.Sprite):
-    def __init__(self, text_speed):
+    def __init__(self, text_speed, rect, rect_color, room, item):
         self.text_speed = text_speed
         self.text_clock = 0
-        self.text = [""]
         self.text_index = 0
+        self.text = dialog_data[room][item]
         self.message = self.text[self.text_index]
+
+        self.rect_color = rect_color
+        self.rect = pygame.Rect(rect)
 
         self.font = pygame.font.SysFont("superlegendboy", 23)
         self.snip = self.font.render("", True, (255,255,255))
@@ -45,20 +53,14 @@ class Interactable(pygame.sprite.Sprite):
         elif self.text_clock >= self.text_speed * len(self.message):
             self.done = True
 
+
+
         self.snip = self.font.render(self.message[0:self.text_clock // self.text_speed], True, (255,255,255))
+
+
         screen.blit(self.snip, (10, 410))
 
 
-
-
-class Object(Interactable):
-    def __init__(self, text_speed, rect, rect_color):
-        super().__init__(text_speed)
-        self.rect_color = rect_color
-        self.rect = pygame.Rect(rect)
-        self.text = ["An old notebook on a table", "It has some calc notes...", "But most of the pages are torn out", "As if the owner wanted to write somethign else"]
-        self.message = self.text[self.text_index]
-    
     def blit(self, screen):
         pygame.draw.rect(screen, self.rect_color, self.rect)
 
