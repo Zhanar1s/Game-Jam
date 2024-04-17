@@ -1,0 +1,16 @@
+{
+    "room1":{
+        "notebook" : [
+            "An old notebook on a table", 
+            "It has some calc notes...", 
+            "But most of the pages are torn out", 
+            "As if the owner wanted to write somethign else"
+        ],
+        "puddle":[
+            "Dark red liquid is spilled all over the floor",
+            "For a moment you thought it was blood",
+            "But it was actually red paint that went dry years ago. It is weird indeed",
+            "'So, this building was always a place for constructions and repairs'"
+        ]
+    }
+}
