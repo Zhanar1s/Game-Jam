@@ -10,7 +10,7 @@ class Interactable(pygame.sprite.Sprite):
         self.text_index = 0
         self.message = self.text[self.text_index]
 
-        self.font = pygame.font.SysFont("superlegendboy", 23)
+        self.font = pygame.font.Font("superlegendboy.ttf", 23)
         self.snip = self.font.render("", True, (255,255,255))
 
         self.done = False
