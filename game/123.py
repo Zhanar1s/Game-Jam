@@ -2,11 +2,15 @@ import pygame
 pygame.init()
 win = pygame.display.set_mode((1200, 600))
 
+door = pygame.transform.scale(pygame.image.load('images/door.png'), (480, 388))
+room2 = pygame.transform.scale(pygame.image.load('images/background.png'), (1200, 600))
+in_room2 = False
+
 walkRight = [
 	pygame.transform.scale(pygame.image.load('images/sprites/Boy/right/1.png'),(170,201)),
     pygame.transform.scale(pygame.image.load('images/sprites/Boy/right/2.png'),(170,201)),
-    pygame.transform.scale(pygame.image.load('images/sprites/Boy/right/3.png'),(170, 201)),
-    pygame.transform.scale(pygame.image.load('images/sprites/Boy/right/4.png'),(170, 201)),
+    pygame.transform.scale(pygame.image.load('images/sprites/Boy/right/3.png'),(170,201)),
+    pygame.transform.scale(pygame.image.load('images/sprites/Boy/right/4.png'),(170,201)),
     pygame.transform.scale(pygame.image.load('images/sprites/Boy/right/5.png'), (170, 201)),
 
 ]
@@ -14,14 +18,14 @@ walkRight = [
 walkUp = [
     pygame.transform.scale(pygame.image.load('images/sprites/Boy/back/1.png'),(125,201)),
     pygame.transform.scale(pygame.image.load('images/sprites/Boy/back/2.png'),(125,201)),
-    pygame.transform.scale(pygame.image.load('images/sprites/Boy/back/3.png'),(125, 201))
+    pygame.transform.scale(pygame.image.load('images/sprites/Boy/back/3.png'),(125,201))
 ]
 
 walkLeft = [
     pygame.transform.scale(pygame.image.load('images/sprites/Boy/left/1.png'),(170,201)),
     pygame.transform.scale(pygame.image.load('images/sprites/Boy/left/2.png'),(170,201)),
-    pygame.transform.scale(pygame.image.load('images/sprites/Boy/left/3.png'),(170, 201)),
-    pygame.transform.scale(pygame.image.load('images/sprites/Boy/left/4.png'),(170, 201)),
+    pygame.transform.scale(pygame.image.load('images/sprites/Boy/left/3.png'),(170,201)),
+    pygame.transform.scale(pygame.image.load('images/sprites/Boy/left/4.png'),(170,201)),
     pygame.transform.scale(pygame.image.load('images/sprites/Boy/left/5.png'), (170, 201)),
 
 ]
@@ -29,24 +33,21 @@ walkLeft = [
 walkDown = [
     pygame.transform.scale(pygame.image.load('images/sprites/Boy/face/1.png'),(125,201)),
     pygame.transform.scale(pygame.image.load('images/sprites/Boy/face/2.png'),(125,201)),
-    pygame.transform.scale(pygame.image.load('images/sprites/Boy/face/3.png'),(125, 201))
+    pygame.transform.scale(pygame.image.load('images/sprites/Boy/face/3.png'),(125,201))
 ]
 
 
 
 bg = pygame.transform.scale(pygame.image.load('images/background.png'), (1200, 600))
 playerStand = pygame.transform.scale(pygame.image.load('images/sprites/Boy/face/1.png'), (125, 201))
-door = pygame.transform.scale(pygame.image.load('images/door_close.png'), (150, 250))
-win.blit(door, (500, 500))
-door_open = pygame.transform.scale(pygame.image.load('images/door_open.png'), (150, 250))
-in_door_open = False
+
 
 clock = pygame.time.Clock()
 
 
 x = 50
 y = 380
-width = 125
+width = 170
 height = 201
 speed = 5
 
@@ -60,14 +61,13 @@ def drawWindow():
     global in_room2
     global animCount
 
-
-    if in_door_open:
-        win.blit(bg, (0, 0))
-        win.blit(door_open, (900, 100))
-
+    if in_room2:
+        win.blit(room2, (0, 0))
     else:
         win.blit(bg, (0, 0))
-        win.blit(door, (1000, 100))
+
+    if x > 1030 and not in_room2:
+        win.blit(door, (1100, 380))
 
     if animCount + 1 >= 30:
         animCount = 0
@@ -84,10 +84,6 @@ def drawWindow():
     elif down:
         win.blit(walkDown[animCount // 10], (x, y))
         animCount += 1
-
-
-
-
     else:
         win.blit(playerStand, (x, y))
 
@@ -102,9 +98,6 @@ while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_e and (x > 950) and (y < 151) :
-                in_door_open = not in_door_open
 
     keys = pygame.key.get_pressed()
     if keys[pygame.K_LEFT] and x > 5:
@@ -119,7 +112,7 @@ while run:
         right = True
         up = False
         down = False
-    elif keys[pygame.K_UP] and y > 150:
+    elif keys[pygame.K_UP] and y > 5:
         y -= speed
         left = False
         right = False
@@ -131,6 +124,8 @@ while run:
         right = False
         up = False
         down = True
+    elif keys[pygame.K_e] and x > 1030 and not in_room2:
+        in_room2 = True
 
     else:
         left = False
