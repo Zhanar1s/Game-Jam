@@ -2,6 +2,7 @@ import pygame
 from spriteclasses import Player, Door, Wall
 from interaction import Interactable
 from lighting import Dim, Light
+from soundbar import sfx
 from menu import *
 
 pygame.init()
@@ -13,13 +14,16 @@ bg = pygame.transform.scale(pygame.image.load('images/background.png'), (1280, 7
 clock = pygame.time.Clock()
 
 player = Player(screen, (50,600))
+
+wall1 = Wall((0,0), (1280,200))
+table_border = Wall((240,280),(250,80))
 door = Door(screen, (600,60))
+
 
 notebook = Interactable(1, (195, 280, 250, 120), (255,255,255), room="room1", item="notebook")
 puddle = Interactable(1, (950, 280, 200, 200), (255,255,255), room="room1", item="puddle")
 
 lantern = Light(screen, (220,220,220), 25, (player.rect.x + 97, player.rect.y + 152))
-wall = Wall((0,0), (750,200))
 dim = Dim(screen)
 
 
@@ -30,7 +34,7 @@ sfx_channel = pygame.mixer.Channel(1)
 
 game_menu(bgm_channel, sfx_channel, "main")
 
-
+sfx_channel.play(sfx["ambience"], -1)
 def scene1():
     run = True
     while run:
@@ -47,21 +51,17 @@ def scene1():
                     if puddle.rect.colliderect(player.rect):
                         puddle.enable = True
                     if door.rect.colliderect(player.rect):
-                        door.open_door(sfx_channel)
+                        door.open_door()
                 if event.key == pygame.K_ESCAPE:
                     game_menu(bgm_channel, sfx_channel, "pause")
                 
 
-        pygame.draw.rect(screen, (255,255,255), wall.rect)
         keys = pygame.key.get_pressed()
   
         player.move(keys, lantern)
- 
 
         door.blit()
         player.blit()
-
-
 
         dim.darken(150)
 
@@ -69,6 +69,9 @@ def scene1():
 
         notebook.interaction(player, screen, keys)
         puddle.interaction(player, screen, keys)
+
+        player.wall_collision(Wall.walls)
+        # wall1.show_test(screen)
 
         pygame.display.update()
 scene1()
