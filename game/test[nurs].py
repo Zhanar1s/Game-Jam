@@ -1,7 +1,7 @@
 import pygame
-from spriteclasses import Player
+from spriteclasses import Player, Door
 from interaction import Interactable
-from lighting import Dim
+from lighting import Dim, Light
 from menu import *
 
 pygame.init()
@@ -13,9 +13,14 @@ bg = pygame.transform.scale(pygame.image.load('images/background.png'), (1200, 6
 clock = pygame.time.Clock()
 
 player = Player(screen, (50,300))
-notebook = Interactable(1, (195, 280, 200, 120), (255,255,255), room="room1", item="notebook")
-puddle = Interactable(1, (800, 280, 200, 200), (255,255,255), room="room1", item="puddle")
+door = Door(screen, (600,60))
+
+notebook = Interactable(1, (195, 280, 250, 120), (255,255,255), room="room1", item="notebook")
+puddle = Interactable(1, (950, 280, 200, 200), (255,255,255), room="room1", item="puddle")
+
+lantern = Light(screen, (220,220,220), 25, (player.rect.x + 97, player.rect.y + 152))
 dim = Dim(screen)
+
 
 bgm_channel = pygame.mixer.Channel(0)
 sfx_channel = pygame.mixer.Channel(1)
@@ -26,23 +31,34 @@ game_menu(bgm_channel, sfx_channel, "main")
 
 while run:
     screen.blit(bg, (0,0))
-    clock.tick(60)
+    clock.tick(100)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_z:
-            notebook.enable = not notebook.enable
-            puddle.enable = not puddle.enable
-
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_z:
+                if notebook.rect.colliderect(player.rect):
+                    notebook.enable = True
+                if puddle.rect.colliderect(player.rect):
+                    puddle.enable = True
+                if door.rect.colliderect(player.rect):
+                    door.open_door(player)
+            if event.key == pygame.K_ESCAPE:
+                game_menu(bgm_channel, sfx_channel, "pause")
             
 
+
     keys = pygame.key.get_pressed()
-    player.move(keys)
+    player.move(keys, lantern)
+
+    door.blit()
     player.blit()
+
     dim.darken(150)
 
-    pygame.draw.circle(screen, (255,255,255), (player.rect.x + 97, player.rect.y + 152), 5)
+    lantern.blit((100,100,100), size=6)
+
     notebook.interaction(player, screen, keys)
     puddle.interaction(player, screen, keys)
 

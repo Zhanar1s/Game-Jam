@@ -1,4 +1,6 @@
 
+
+
 import pygame
 import json
 import re
@@ -8,6 +10,7 @@ with open("text/dialogs.json", "r") as json_data:
     dialog_data = json.load(json_data)
 
 class Interactable(pygame.sprite.Sprite):
+    all_object_rects = []
     def __init__(self, text_speed, rect, rect_color, room, item):
         self.text_speed = text_speed
         self.text_clock = 0
@@ -24,19 +27,25 @@ class Interactable(pygame.sprite.Sprite):
         self.done = False
         self.enable = False
 
+        Interactable.all_object_rects.append(self.rect)
+
     def interaction(self, player, screen, pressed):
-        if self.enable and player.rect.colliderect(self.rect):
-        #if self.enable and player.rect.colliderect(self.rect):
-            if self.done and self.text_index < len(self.text) - 1 and pressed[pygame.K_z]:
-                self.text_index += 1
-                self.done = False
-                self.text_clock = 0
-            self.print_out(screen)
+        # pygame.draw.rect(screen, self.rect_color, self.rect)
+
+        if player.rect.colliderect(self.rect):
+
+            if self.enable:
+                if self.done and self.text_index < len(self.text) - 1 and pressed[pygame.K_z]:
+                    self.text_index += 1
+                    self.done = False
+                    self.text_clock = 0
+                self.print_out(screen)
+
+
         else:
-            self.enable = False
             self.text_clock = 0
 
-
+            self.enable = False
 
 
 
@@ -45,20 +54,17 @@ class Interactable(pygame.sprite.Sprite):
         Function that prints out text in a type writer style
         '''
         self.message = self.text[self.text_index]
-        pygame.draw.rect(screen, (0,0,0), [0, 400, screen.get_width(), screen.get_height() - 400])
-        pygame.draw.rect(screen, (255,255,255), [0,400, screen.get_width(), screen.get_height()], 5)
+        pygame.draw.rect(screen, (0,0,0), [0, 500, screen.get_width(), screen.get_height() - 500])
+        pygame.draw.rect(screen, (255,255,255), [0,500, screen.get_width(), screen.get_height()-500], 5)
 
         if self.text_clock < self.text_speed * len(self.message):
             self.text_clock += 1
         elif self.text_clock >= self.text_speed * len(self.message):
             self.done = True
 
-
-
         self.snip = self.font.render(self.message[0:self.text_clock // self.text_speed], True, (255,255,255))
 
-
-        screen.blit(self.snip, (10, 410))
+        screen.blit(self.snip, (10, 510))
 
 
     def blit(self, screen):
