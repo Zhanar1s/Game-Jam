@@ -1,5 +1,6 @@
 import pygame
 import os
+from soundbar import sfx
 pygame.init()
 
 class Player(pygame.sprite.Sprite):
@@ -31,7 +32,7 @@ class Player(pygame.sprite.Sprite):
         self.old_x = 0
         self.old_y = 0
 
-        self.speed = 6
+        self.speed = 4
 
         self.moving = {
                 "left" : False,
@@ -69,7 +70,7 @@ class Player(pygame.sprite.Sprite):
             for key in self.moving.keys():
                 self.moving[key] = False
             self.moving["left"] = True
-            self.rect.x -= self.speed
+            self.rect.x = max(0, self.rect.x - self.speed)
             lantern.pos = (self.rect.x + 15, self.rect.y + 182) 
 
         elif pressed[pygame.K_RIGHT]:
@@ -104,7 +105,22 @@ class Player(pygame.sprite.Sprite):
         else:
             self.screen.blit(self.default_image, (self.rect.x, self.rect.y))
 
-
+    def wall_collision(self, walls):
+        self.rect.x += (self.rect.x-self.old_x)
+        wall_hit_list = pygame.sprite.spritecollide(self, walls, False)
+        for wall in wall_hit_list:
+            if (self.rect.x - self.old_x) > 0:
+                self.rect.right = wall.rect.left
+            elif (self.rect.x - self.old_x) < 0:
+                self.rect.left = wall.rect.right
+ 
+        self.rect.y += (self.rect.y - self.old_y)
+        wall_hit_list = pygame.sprite.spritecollide(self, walls, False)
+        for wall in wall_hit_list:
+            if (self.rect.y - self.old_y) > 0:
+                self.rect.bottom = wall.rect.top
+            elif (self.rect.y - self.old_y) < 0:
+                self.rect.top = wall.rect.bottom
 
 
 class Wall(pygame.sprite.Sprite):
@@ -118,7 +134,9 @@ class Wall(pygame.sprite.Sprite):
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         Wall.walls.add(self)
 
-    
+    def show_test(self, screen):
+        for wall in Wall.walls:
+            pygame.draw.rect(screen, (255,255,255), wall.rect, 4)
 
 
 
@@ -135,14 +153,18 @@ class Door():
         self.pos = pos
         self.rect = self.current_image.get_rect(topleft=pos)
 
+        self.audio_channel = pygame.mixer.Channel(2)
+
     def blit(self):
         self.screen.blit(self.current_image, self.rect)
 
-    def open_door(self, sfx_channel):
+    def open_door(self):
         if not self.opened:
-            sfx_channel.play("sfx/dooropen.wav")
+            self.audio_channel.play(sfx["dooropen"])
             self.current_image = self.open_image
+            self.opened = True
         else:
-            sfx_channel.play("sfx/doorclose.wav")
-            self.closed_image = self.closed_image
+            self.audio_channel.play(sfx["doorclose"])
+            self.current_image = self.closed_image
+            self.opened = False
     
