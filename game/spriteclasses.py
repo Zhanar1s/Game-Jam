@@ -28,8 +28,10 @@ class Player(pygame.sprite.Sprite):
 
         self.default_image = self.walk_face_images[0]
         self.rect = self.default_image.get_rect(center = pos)
+        self.old_x = 0
+        self.old_y = 0
 
-        self.speed = 4
+        self.speed = 6
 
         self.moving = {
                 "left" : False,
@@ -44,19 +46,23 @@ class Player(pygame.sprite.Sprite):
 
 
     def move(self, pressed, lantern):
+        self.old_x = self.rect.x
+        self.old_y = self.rect.y
 
         if pressed[pygame.K_UP]:
             for key in self.moving.keys():
                 self.moving[key] = False
             self.moving["back"] = True
-            self.rect.y = max(self.rect.y - self.speed, 0 + 150)
+            self.rect.y -= self.speed
+            # self.rect.y = max(self.rect.y - self.speed, 0 + 150)
             lantern.pos = (self.rect.x+97, self.rect.y+152)
 
         elif pressed[pygame.K_DOWN]:
             for key in self.moving.keys():
                 self.moving[key] = False
             self.moving["face"] = True
-            self.rect.y = min(self.rect.y + self.speed, self.screen.get_height()-self.rect.height)
+            self.rect.y += self.speed
+            # self.rect.y = min(self.rect.y + self.speed, self.screen.get_height()-self.rect.height)
             lantern.pos = (self.rect.x + 97, self.rect.y + 152)
 
         elif pressed[pygame.K_LEFT]:
@@ -99,17 +105,21 @@ class Player(pygame.sprite.Sprite):
             self.screen.blit(self.default_image, (self.rect.x, self.rect.y))
 
 
-# class Wall:
-#     def __init__(self, topleft, size, color):
-#         self.color = color
-#         self.x = topleft[0]
-#         self.y = topleft[1]
-#         self.width = size[0]
-#         self.height = size[1]
-#         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
 
-#     def place(self, screen):
-#         pygame.draw.rect(screen, self.color, self.rect)
+
+class Wall(pygame.sprite.Sprite):
+    walls = pygame.sprite.Group()
+    def __init__(self, topleft, size):
+        super().__init__()
+        self.x = topleft[0]
+        self.y = topleft[1]
+        self.width = size[0]
+        self.height = size[1]
+        self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
+        Wall.walls.add(self)
+
+    
+
 
 
             
@@ -128,9 +138,11 @@ class Door():
     def blit(self):
         self.screen.blit(self.current_image, self.rect)
 
-    def open_door(self, player):
+    def open_door(self, sfx_channel):
         if not self.opened:
+            sfx_channel.play("sfx/dooropen.wav")
             self.current_image = self.open_image
         else:
+            sfx_channel.play("sfx/doorclose.wav")
             self.closed_image = self.closed_image
     

@@ -179,7 +179,7 @@ def game_menu(bgm_channel : pygame.mixer.Channel, sfx_channel : pygame.mixer.Cha
     '''
     loop = True
     to_main_menu = False
-    screen = pygame.display.set_mode((1200,675))
+    screen = pygame.display.set_mode((1280,720))
     clock = pygame.time.Clock()
 
     if menu_type == "main":
