@@ -43,35 +43,40 @@ class Player(pygame.sprite.Sprite):
         #self.down
 
 
-    def move(self, pressed, all_objects):
+    def move(self, pressed, lantern):
 
         if pressed[pygame.K_UP]:
             for key in self.moving.keys():
                 self.moving[key] = False
             self.moving["back"] = True
             self.rect.y = max(self.rect.y - self.speed, 0 + 150)
+            lantern.pos = (self.rect.x+97, self.rect.y+152)
 
         elif pressed[pygame.K_DOWN]:
             for key in self.moving.keys():
                 self.moving[key] = False
             self.moving["face"] = True
             self.rect.y = min(self.rect.y + self.speed, self.screen.get_height()-self.rect.height)
+            lantern.pos = (self.rect.x + 97, self.rect.y + 152)
 
         elif pressed[pygame.K_LEFT]:
             for key in self.moving.keys():
                 self.moving[key] = False
             self.moving["left"] = True
             self.rect.x -= self.speed
+            lantern.pos = (self.rect.x + 15, self.rect.y + 182) 
 
         elif pressed[pygame.K_RIGHT]:
             for key in self.moving.keys():
                 self.moving[key] = False
             self.moving["right"] = True
             self.rect.x += self.speed
+            lantern.pos = (self.rect.x + self.rect.width + 30, self.rect.y + 182) 
         else:
             self.moving["right"] = False
             self.moving["left"] = False
             self.walk_count = 0
+            lantern.pos = (self.rect.x + 97, self.rect.y + 152)
 
 
     def blit(self):
