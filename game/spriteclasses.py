@@ -55,16 +55,14 @@ class Player(pygame.sprite.Sprite):
             for key in self.moving.keys():
                 self.moving[key] = False
             self.moving["back"] = True
-            self.rect.y -= self.speed
-            # self.rect.y = max(self.rect.y - self.speed, 0 + 150)
+            self.rect.y = max(self.rect.y - self.speed, 0)
             lantern.pos = (self.rect.x+97, self.rect.y+152)
 
         elif pressed[pygame.K_DOWN]:
             for key in self.moving.keys():
                 self.moving[key] = False
             self.moving["face"] = True
-            self.rect.y += self.speed
-            # self.rect.y = min(self.rect.y + self.speed, self.screen.get_height()-self.rect.height)
+            self.rect.y = min(self.rect.y + self.speed, self.screen.get_height()-self.rect.height)
             lantern.pos = (self.rect.x + 97, self.rect.y + 152)
 
         elif pressed[pygame.K_LEFT]:
@@ -78,7 +76,7 @@ class Player(pygame.sprite.Sprite):
             for key in self.moving.keys():
                 self.moving[key] = False
             self.moving["right"] = True
-            self.rect.x += self.speed
+            self.rect.x = min(self.screen.get_width() - self.rect.width, self.rect.x + self.speed)
             lantern.pos = (self.rect.x + self.rect.width + 30, self.rect.y + 182)
         else:
             self.moving["right"] = False
@@ -140,7 +138,11 @@ class Wall(pygame.sprite.Sprite):
         for wall in Wall.walls:
             pygame.draw.rect(screen, (255,255,255), wall.rect, 4)
 
-class Door:
+    @classmethod
+    def delete_all(cls):
+        cls.walls.empty()
+
+class Door():
     def __init__(self, screen, pos):
         self.screen = screen
 

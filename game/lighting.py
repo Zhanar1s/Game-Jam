@@ -30,6 +30,7 @@ class Dim():
         self.black_surface.set_alpha(alpha)
         self.screen.blit(self.black_surface, (0,0))
 
+
     def fade(self):
         if self.to_fade:
             fade = pygame.Surface((self.width, self.height))
