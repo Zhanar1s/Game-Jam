@@ -71,7 +71,7 @@ def scene1():
         puddle.interaction(player, screen, keys)
 
         player.wall_collision(Wall.walls)
-        wall1.show_test(screen)
+        # wall1.show_test(screen)
 
         pygame.display.update()
 scene1()

@@ -132,6 +132,7 @@ class Wall(pygame.sprite.Sprite):
         self.y = topleft[1]
         self.width = size[0]
         self.height = size[1]
+        self.show = True
         self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
         Wall.walls.add(self)
 
