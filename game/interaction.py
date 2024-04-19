@@ -11,14 +11,13 @@ with open("text/dialogs.json", "r") as json_data:
 
 class Interactable(pygame.sprite.Sprite):
     all_object_rects = []
-    def __init__(self, text_speed, rect, rect_color, room, item):
+    def __init__(self, text_speed, rect, room, item):
         self.text_speed = text_speed
         self.text_clock = 0
         self.text_index = 0
         self.text = dialog_data[room][item]
         self.message = self.text[self.text_index]
 
-        self.rect_color = rect_color
         self.rect = pygame.Rect(rect)
 
         self.font = pygame.font.SysFont("superlegendboy", 23)
@@ -72,8 +71,14 @@ class Interactable(pygame.sprite.Sprite):
 
 
 
+class Note(Interactable):
+    def __init__(self, text_speed, rect, room, item):
+        super().__init__(text_speed, rect, room, item)
+        self.image = pygame.image.load("images/paper.png")
+        self.rect = self.image.get_rect(topleft = self.rect.topleft)
 
-
+    def blit(self, screen):
+        screen.blit(self.image, self.rect)
 
         
 
