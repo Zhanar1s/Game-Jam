@@ -1,14 +1,13 @@
 import pygame
 import time
-from spriteclasses_testing import Player, Door, Wall
+from spriteclasses import Player, Door, Wall
 from interaction import Interactable
 from lighting import Dim, Light
 from soundbar import sfx
-from menu import *
+from menu_testing import*
 
 pygame.init()
 screen = pygame.display.set_mode((1280, 720))
-
 
 bg_room1 = pygame.transform.scale(pygame.image.load('images/room/room1.png'), (1280, 720))
 bg_room2 = pygame.transform.scale(pygame.image.load('images/room/room2.png'), (1280, 720))
@@ -30,15 +29,13 @@ puddle = Interactable(1, (950, 280, 200, 200), (255, 255, 255), room="room1", it
 lantern = Light(screen, (220, 220, 220), 25, (player.rect.x + 97, player.rect.y + 152))
 dim = Dim(screen)
 
+
 bgm_channel = pygame.mixer.Channel(0)
 sfx_channel = pygame.mixer.Channel(1)
 
-game_menu(bgm_channel, sfx_channel, "main")
-sfx_channel.play(sfx["ambience"], -1)
-
 current_room = "room1"
 current_room_bg = bg_room1
-
+game_menu(bgm_channel, sfx_channel, "main")
 def scene1():
     global current_room, current_room_bg
     door_open_time = 0
@@ -85,6 +82,7 @@ def scene1():
                             door.close_door()
                 if event.key == pygame.K_ESCAPE:
                     game_menu(bgm_channel, sfx_channel, "pause")
+                    pygame.mixer.pause()
 
         keys = pygame.key.get_pressed()
 

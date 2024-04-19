@@ -1,3 +1,4 @@
+
 import pygame
 import os
 from soundbar import sfx
@@ -6,7 +7,7 @@ pygame.init()
 class Player(pygame.sprite.Sprite):
 
     def __init__(self, screen, pos):
-        
+
         super().__init__()
         self.screen = screen
 
@@ -18,11 +19,11 @@ class Player(pygame.sprite.Sprite):
         self.walk_right_images = [
             pygame.image.load('images/sprites/Boy/right/' + x) for x in os.listdir('images/sprites/Boy/right')
         ]
-        
+
         self.walk_face_images = [
             pygame.image.load('images/sprites/Boy/face/' + x) for x in os.listdir('images/sprites/Boy/face')
-        ]        
-        
+        ]
+
         self.walk_back_images = [
             pygame.image.load('images/sprites/Boy/back/' +x) for x in os.listdir('images/sprites/Boy/back')
         ]
@@ -41,7 +42,7 @@ class Player(pygame.sprite.Sprite):
                 "back" : False
         }
 
-        self.walk_count = 0 
+        self.walk_count = 0
         #self.up
         #self.down
 
@@ -71,14 +72,14 @@ class Player(pygame.sprite.Sprite):
                 self.moving[key] = False
             self.moving["left"] = True
             self.rect.x = max(0, self.rect.x - self.speed)
-            lantern.pos = (self.rect.x + 15, self.rect.y + 182) 
+            lantern.pos = (self.rect.x + 15, self.rect.y + 182)
 
         elif pressed[pygame.K_RIGHT]:
             for key in self.moving.keys():
                 self.moving[key] = False
             self.moving["right"] = True
             self.rect.x += self.speed
-            lantern.pos = (self.rect.x + self.rect.width + 30, self.rect.y + 182) 
+            lantern.pos = (self.rect.x + self.rect.width + 30, self.rect.y + 182)
         else:
             self.moving["right"] = False
             self.moving["left"] = False
@@ -88,8 +89,8 @@ class Player(pygame.sprite.Sprite):
 
     def blit(self):
         if self.walk_count + 1 >= 60:
-            self.walk_count = 0 
-        
+            self.walk_count = 0
+
         if self.moving["left"]:
             self.screen.blit(self.walk_left_images[self.walk_count // 12], (self.rect.x, self.rect.y))
             self.walk_count += 1
@@ -113,7 +114,7 @@ class Player(pygame.sprite.Sprite):
                 self.rect.right = wall.rect.left
             elif (self.rect.x - self.old_x) < 0:
                 self.rect.left = wall.rect.right
- 
+
         self.rect.y += (self.rect.y - self.old_y)
         wall_hit_list = pygame.sprite.spritecollide(self, walls, False)
         for wall in wall_hit_list:
@@ -138,10 +139,7 @@ class Wall(pygame.sprite.Sprite):
         for wall in Wall.walls:
             pygame.draw.rect(screen, (255,255,255), wall.rect, 4)
 
-
-
-            
-class Door():
+class Door:
     def __init__(self, screen, pos):
         self.screen = screen
 
@@ -163,8 +161,9 @@ class Door():
             self.audio_channel.play(sfx["dooropen"])
             self.current_image = self.open_image
             self.opened = True
-        else:
+
+    def close_door(self):
+        if self.opened:
             self.audio_channel.play(sfx["doorclose"])
             self.current_image = self.closed_image
             self.opened = False
-    
