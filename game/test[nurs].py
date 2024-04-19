@@ -9,7 +9,7 @@ pygame.init()
 screen = pygame.display.set_mode((1280, 720))
 
 
-bg = pygame.transform.scale(pygame.image.load('images/background.png'), (1280, 720))
+bg = pygame.transform.scale(pygame.image.load('images/room/room1.png'), (1280, 720))
 
 clock = pygame.time.Clock()
 
@@ -54,10 +54,10 @@ def scene1():
                         door.open_door()
                 if event.key == pygame.K_ESCAPE:
                     game_menu(bgm_channel, sfx_channel, "pause")
-                
+
 
         keys = pygame.key.get_pressed()
-  
+
         player.move(keys, lantern)
 
         door.blit()
