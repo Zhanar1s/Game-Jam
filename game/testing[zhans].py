@@ -48,7 +48,7 @@ def scene1():
             if event.type == pygame.QUIT:
                 run = False
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_z:
+                if event.key == pygame.K_z and (player.rect.x > 600) and (player.rect.y < 210):
                     if notebook.rect.colliderect(player.rect):
                         notebook.enable = True
                     if puddle.rect.colliderect(player.rect):
