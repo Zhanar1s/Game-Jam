@@ -14,7 +14,7 @@ bg_room1 = pygame.transform.scale(pygame.image.load('images/room/room1.png'), (1
 bg_room2 = pygame.transform.scale(pygame.image.load('images/room/room2.png'), (1280, 720))
 bg_room3 = pygame.transform.scale(pygame.image.load('images/room/room3.png'), (1280, 720))
 bg_room4 = pygame.transform.scale(pygame.image.load('images/room/room4.png'), (1280, 720))
-bg_room5 = pygame.transform.scale(pygame.image.load('images/room/room3.png'), (1280, 720))
+bg_room5 = pygame.transform.scale(pygame.image.load('images/room/room5.png'), (1280, 720))
 
 clock = pygame.time.Clock()
 
