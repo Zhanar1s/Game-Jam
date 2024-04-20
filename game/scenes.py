@@ -1,14 +1,22 @@
 import pygame
+import sys
 pygame.init()
-from spriteclasses import Player, Wall, Door, Witch
+from spriteclasses import Player, Wall, Door, Witch, Monster
 from interaction import Interactable, Note
 from lighting import Light, Dim
+activated_monster = pygame.USEREVENT +1
+
+
 
 
 class Scene1():
+
     def __init__(self, screen, scene_manager):
         self.screen = screen
         self.scene_manager = scene_manager
+        self.monster = Monster((0, 0))
+        self.monster.reset()
+
 
         self.bg = pygame.transform.scale(pygame.image.load('images/room/room1.png'), (1280, 720))
         self.player = Player(self.screen, (50,600))
@@ -29,6 +37,13 @@ class Scene1():
 
     def run(self):
         self.screen.blit(self.bg, (0,0))
+        if self.monster.visible:
+            self.monster.update(self.player.rect.center)
+            self.screen.blit(self.monster.image, self.monster.rect)
+            if pygame.sprite.collide_rect(self.player, self.monster):
+                print("Game Over!")  # Выведите сообщение о конце игры
+                pygame.quit()  # Завершите pygame
+                sys.exit()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
@@ -36,17 +51,23 @@ class Scene1():
                 if event.key == pygame.K_z:
                     if self.notebook.rect.colliderect(self.player.rect):
                         self.notebook.enable = True
+                        pygame.time.set_timer(activated_monster, 4000)
+
                     if self.puddle.rect.colliderect(self.player.rect):
                         self.puddle.enable = True
                     if self.door.rect.colliderect(self.player.rect):
                         self.door.open_door()
                 if event.key == pygame.K_ESCAPE:
                     self.scene_manager.set_scene("menu")
+            if event.type == activated_monster:
+                self.monster.active = True
+                self.monster.visible = True
 
         if self.player.rect.colliderect(self.door) and self.door.opened:
             Wall.delete_all()
             self.dim.darken(0)
             self.scene_manager.set_scene("scene2")
+            self.monster.reset()
 
         keys = pygame.key.get_pressed()
 
@@ -70,6 +91,8 @@ class Scene2():
     def __init__(self, screen, scene_manager):
         self.screen = screen
         self.scene_manager = scene_manager
+        self.monster = Monster((0, 0))
+        self.monster.reset()
 
         self.bg = pygame.transform.scale(pygame.image.load('images/room/room2.png'), (1280, 720))
         self.player = Player(self.screen, (100,600))
@@ -84,26 +107,40 @@ class Scene2():
     def run(self):
         self.wall1 = Wall((0,0), (1280,200))
         self.screen.blit(self.bg, (0,0))
+        if self.monster.visible:
+            self.monster.update(self.player.rect.center)
+            self.screen.blit(self.monster.image, self.monster.rect)
+            if pygame.sprite.collide_rect(self.player, self.monster):
+                print("Game Over!")  # Выведите сообщение о конце игры
+                pygame.quit()  # Завершите pygame
+                sys.exit()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_ESCAPE:
-                    
+
                     self.scene_manager.set_scene("menu", "scene2")
                 if event.key == pygame.K_z:
                     if self.paper.rect.colliderect(self.player.rect):
                         self.paper.enable = True
+                        pygame.time.set_timer(activated_monster, 4000)
+
                     elif self.border.rect.colliderect(self.player.rect):
                         self.border.enable = True
-                        
-        
+
+            if event.type == activated_monster:
+                self.monster.active = True
+                self.monster.visible = True
+
+
         keys = pygame.key.get_pressed()
 
         if self.player.rect.x >= self.screen.get_width() - self.player.rect.width - 10:
             self.dim.darken(0)
             Wall.delete_all()
             self.scene_manager.set_scene("scene3")
+            self.monster.reset()
 
         self.paper.blit(self.screen)
 
@@ -117,13 +154,15 @@ class Scene2():
         self.border.interaction(self.player, self.screen, keys)
 
         self.player.wall_collision(Wall.walls)
-        
+
 
 
 class Scene3():
     def __init__(self, screen, scene_manager):
         self.screen = screen
         self.scene_manager = scene_manager
+        self.monster = Monster((0, 0))
+        self.monster.reset()
 
         self.bg = pygame.transform.scale(pygame.image.load('images/room/room3.png'), (1280, 720))
         self.paper = Note(2, (200, 400, 64, 64), room="room3", item="papernote2")
@@ -151,6 +190,13 @@ class Scene3():
         self.wall3 = Wall((750,200), (100,200))
         self.wall4 = Wall((1000,200), (100,200))
         self.screen.blit(self.bg, (0,0))
+        if self.monster.visible:
+            self.monster.update(self.player.rect.center)
+            self.screen.blit(self.monster.image, self.monster.rect)
+            if pygame.sprite.collide_rect(self.player, self.monster):
+                print("Game Over!")  # Выведите сообщение о конце игры
+                pygame.quit()  # Завершите pygame
+                sys.exit()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
@@ -160,6 +206,7 @@ class Scene3():
                 if event.key == pygame.K_z:
                     if self.paper.rect.colliderect(self.player.rect):
                         self.paper.enable = True
+                        pygame.time.set_timer(activated_monster, 4000)
                     elif self.border1.rect.colliderect(self.player.rect):
                         self.border1.enable = True
                     elif self.border2.rect.colliderect(self.player.rect):
@@ -167,16 +214,19 @@ class Scene3():
                     elif self.painting.rect.colliderect(self.player.rect):
                         self.painting.enable = True
                         self.locked = False
-                                            
+
                     elif self.skull_activate_rect.colliderect(self.player.rect):
                         self.witch.scare_trigger = True
-
+            if event.type == activated_monster:
+                self.monster.active = True
+                self.monster.visible = True
 
         if not self.locked:
             if self.player.rect.x >= self.screen.get_width() - self.player.rect.width - 10:
                 self.dim.darken(0)
                 Wall.delete_all()
                 self.scene_manager.set_scene("scene4")
+                self.monster.reset()
 
 
         keys = pygame.key.get_pressed()
@@ -205,6 +255,8 @@ class Scene4():
     def __init__(self, screen, scene_manager):
         self.screen = screen
         self.scene_manager = scene_manager
+        self.monster = Monster((0, 0))
+        self.monster.reset()
 
         self.bg = pygame.transform.scale(pygame.image.load('images/room/room4.png'), (1280, 720))
         self.paper = Note(1, (800, 600, 64, 64), room="room4", item="papernote3")
@@ -221,6 +273,13 @@ class Scene4():
     def run(self):
         self.wall1 = Wall((0,0), (1280,200))
         self.screen.blit(self.bg, (0,0))
+        if self.monster.visible:
+            self.monster.update(self.player.rect.center)
+            self.screen.blit(self.monster.image, self.monster.rect)
+            if pygame.sprite.collide_rect(self.player, self.monster):
+                print("Game Over!")  # Выведите сообщение о конце игры
+                pygame.quit()  # Завершите pygame
+                sys.exit()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
@@ -230,13 +289,21 @@ class Scene4():
                 if event.key == pygame.K_z:
                     if self.paper.rect.colliderect(self.player.rect):
                         self.paper.enable = True
+                        pygame.time.set_timer(activated_monster, 4000)
+
                     elif self.border.rect.colliderect(self.player.rect):
                         self.border.enable = True
+
+            if event.type == activated_monster:
+                self.monster.active = True
+                self.monster.visible = True
+
         if self.player.rect.x >= self.screen.get_width() - self.player.rect.width - 10:
             self.dim.darken(0)
             Wall.delete_all()
 
             self.scene_manager.set_scene("scene5")
+            self.monster.reset()
 
 
         keys = pygame.key.get_pressed()
@@ -256,6 +323,8 @@ class Scene5():
     def __init__(self, screen, scene_manager):
         self.screen = screen
         self.scene_manager = scene_manager
+        self.monster = Monster((0, 0))
+        self.monster.reset()
 
         self.bg = pygame.transform.scale(pygame.image.load('images/room/room5.png'), (1280, 720))
         self.paper = Note(1, (900, 420, 64, 64), room="room5", item="papernote4")
@@ -271,6 +340,13 @@ class Scene5():
     def run(self):
         self.wall1 = Wall((0,0), (1280,200))
         self.screen.blit(self.bg, (0,0))
+        if self.monster.visible:
+            self.monster.update(self.player.rect.center)
+            self.screen.blit(self.monster.image, self.monster.rect)
+            if pygame.sprite.collide_rect(self.player, self.monster):
+                print("Game Over!")  # Выведите сообщение о конце игры
+                pygame.quit()  # Завершите pygame
+                sys.exit()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
@@ -280,12 +356,19 @@ class Scene5():
                 if event.key == pygame.K_z:
                     if self.paper.rect.colliderect(self.player.rect):
                         self.paper.enable = True
+                        pygame.time.set_timer(activated_monster, 4000)
                     elif self.border.rect.colliderect(self.player.rect):
                         self.border.enable = True
+
+            if event.type == activated_monster:
+                self.monster.active = True
+                self.monster.visible = True
+
         if self.player.rect.x >= self.screen.get_width() - self.player.rect.width - 10:
             self.dim.darken(0)
             Wall.delete_all()
             self.scene_manager.set_scene("scene6")
+            self.monster.reset()
 
 
         keys = pygame.key.get_pressed()
@@ -305,6 +388,8 @@ class Scene6():
     def __init__(self, screen, scene_manager):
         self.screen = screen
         self.scene_manager = scene_manager
+        self.monster = Monster((0, 0))
+        self.monster.reset()
 
         self.bg = pygame.transform.scale(pygame.image.load('images/room/room6.png'), (1280, 720))
         self.paper = Note(1, (700, 500, 64, 64), room="room6", item="papernote5")
@@ -321,6 +406,13 @@ class Scene6():
     def run(self):
         self.wall1 = Wall((0,0), (1280,200))
         self.screen.blit(self.bg, (0,0))
+        if self.monster.visible:
+            self.monster.update(self.player.rect.center)
+            self.screen.blit(self.monster.image, self.monster.rect)
+            if pygame.sprite.collide_rect(self.player, self.monster):
+                print("Game Over!")  # Выведите сообщение о конце игры
+                pygame.quit()  # Завершите pygame
+                sys.exit()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
@@ -330,12 +422,19 @@ class Scene6():
                 if event.key == pygame.K_z:
                     if self.paper.rect.colliderect(self.player.rect):
                         self.paper.enable = True
+                        pygame.time.set_timer(activated_monster, 4000)
                     elif self.border.rect.colliderect(self.player.rect):
                         self.border.enable = True
+
+            if event.type == activated_monster:
+                self.monster.active = True
+                self.monster.visible = True
+
         if self.player.rect.x >= self.screen.get_width() - self.player.rect.width - 10:
             self.dim.darken(0)
             Wall.delete_all()
             self.scene_manager.set_scene("scene7")
+            self.monster.reset()
 
         keys = pygame.key.get_pressed()
 
@@ -354,6 +453,8 @@ class Scene7():
     def __init__(self, screen, scene_manager):
         self.screen = screen
         self.scene_manager = scene_manager
+        self.monster = Monster((0, 0))
+        self.monster.reset()
 
         self.bg = pygame.transform.scale(pygame.image.load('images/room/room7.png'), (1280, 720))
         self.paper = Note(1, (300, 600, 64, 64), room="room7", item="papernote6")
@@ -370,6 +471,13 @@ class Scene7():
     def run(self):
         self.wall1 = Wall((0,0), (1280,200))
         self.screen.blit(self.bg, (0,0))
+        if self.monster.visible:
+            self.monster.update(self.player.rect.center)
+            self.screen.blit(self.monster.image, self.monster.rect)
+            if pygame.sprite.collide_rect(self.player, self.monster):
+                print("Game Over!")  # Выведите сообщение о конце игры
+                pygame.quit()  # Завершите pygame
+                sys.exit()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
@@ -379,8 +487,13 @@ class Scene7():
                 if event.key == pygame.K_z:
                     if self.paper.rect.colliderect(self.player.rect):
                         self.paper.enable = True
+                        pygame.time.set_timer(activated_monster, 4000)
                     elif self.border.rect.colliderect(self.player.rect):
                         self.border.enable = True
+
+            if event.type == activated_monster:
+                self.monster.active = True
+                self.monster.visible = True
 
         keys = pygame.key.get_pressed()
 

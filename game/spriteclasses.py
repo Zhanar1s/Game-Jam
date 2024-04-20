@@ -85,6 +85,7 @@ class Player(pygame.sprite.Sprite):
             lantern.pos = (self.rect.x + 97, self.rect.y + 152)
 
 
+
     def blit(self):
         if self.walk_count + 1 >= 60:
             self.walk_count = 0
@@ -162,7 +163,7 @@ class Witch(pygame.sprite.Sprite):
         self.screen.fill((0,0,0))
         pygame.time.delay((1000))
         self.scare_trigger = False
-        
+
 
 
 class Door():
@@ -193,3 +194,35 @@ class Door():
             self.audio_channel.play(sfx["doorclose"])
             self.current_image = self.closed_image
             self.opened = False
+
+class Monster(pygame.sprite.Sprite):
+    def __init__(self, pos):
+        super().__init__()
+        self.images = [pygame.image.load('images/monster0.png'), pygame.image.load('images/monster0.png'), pygame.image.load('images/monster0.png')]
+        self.index = 0
+        self.image = self.images[self.index]
+        self.rect = self.image.get_rect(center=pos)
+        self.speed = 2
+        self.active = False  # Монстр изначально не активен
+        self.visible = False  # Монстр изначально не видим
+
+    def reset(self):
+        self.active = False
+        self.visible = False
+
+        
+
+    def update(self, player_pos):
+        if self.active:  # Монстр двигается только если он активен
+            if self.rect.x < player_pos[0]:
+                self.rect.x += self.speed
+            elif self.rect.x > player_pos[0]:
+                self.rect.x -= self.speed
+
+            if self.rect.y < player_pos[1]:
+                self.rect.y += self.speed
+            elif self.rect.y > player_pos[1]:
+                self.rect.y -= self.speed
+
+            self.index = (self.index + 1) % len(self.images)
+            self.image = self.images[self.index]

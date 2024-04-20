@@ -11,7 +11,7 @@ screen_height = 720
 
 class Game():
     '''
-    Main game class. 
+    Main game class.
     '''
     def __init__(self):
         pygame.init()
@@ -67,7 +67,7 @@ class Game():
             Here we call the get_scene function of scene manager and according to the returned value, we play this scene
             '''
             self.scenes[self.scene_manager.get_scene()].run()
-            
+
             pygame.display.update()
             self.clock.tick(60)
 
