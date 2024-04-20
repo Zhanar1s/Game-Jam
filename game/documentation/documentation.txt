@@ -1,0 +1,64 @@
+﻿Документация для игры "GONE"
+Введение
+"GONE" - это увлекательная 2D хоррор игра, в которой игрок в роли заблудшего магистранта, 
+который отправляется в опасный и загадочный бункер под университетом КБТУ, где остается запертым. 
+Главный герой старается выбраться из бункера прячась от монстра… 
+Особенность игры
+Интересом многих перворкурсников является видение бункера, находящегося под нашим университетом. 
+Так как мы его никогда не видели, студенты могут лишь предпологать что находится внутри. 
+Геймплей
+* Путешествие по бункеру. Главный персонаж исследует разные места бункера КБТУ.
+* Сбор подсказок и ключей: По пути будут попадаться записки прошлого посетителя бункера, который не смог выбраться из заперти. Они будут помогать нашему персонажу.
+* Враги и опасности: На пути будет встречаться монстр, который будет стараться убить нашего персонажа, от него всегда можно спрятаться в шкафу.
+Графика и дизайн
+* Уникальный арт-стиль: Визуальный стиль игры построен на виде сбоку и пиксель арте.
+* Атмосфера: Атмосфера игры создает напряжение и загадочность, вдохновленные темной и опасной средой бункера.
+Управление
+* Использование клавиатуры: Игрок управляет персонажем с помощью клавиш стрелок для перемещения влево и вправо, вверх и вниз.
+* Интерактивность: Игрок может взаимодействовать с различными объектами в игре, нажимая на клавишу "Z".
+Системные требования
+* Операционная система: Windows 7/8/10, macOS, Linux
+* Процессор: 2 ГГц и выше
+* Оперативная память: 2 ГБ и выше
+* Видеокарта: совместимая с OpenGL 3.0
+* Свободное место на жестком диске: 500 МБ
+Команда разработчиков
+*  Жантуар Нурсултан(@a1_234n) - Программист
+* Абишева Ясмин (@yasenaaa) - Художник, дизайнер уровней
+* Акмурзаев Жанарыс (@akmurzaev) - Программист
+* Марзаева Диана (@mewdiaana) - игровой дизайнер
+* Макымов Алихан (@makymovv) - Менеджер проекта, документация
+
+
+
+
+Documentation for the game "GONE"
+Introduction
+"GONE" is an exciting 2D horror game in which the player takes on the role of a lost master's student,
+who goes to a dangerous and mysterious bunker under the KBTU university, where he remains locked.
+The main character is trying to get out of the bunker, hiding from the monster...
+Game Feature
+The interest of many first-year students is the vision of the bunker located under our university.
+Since we have never seen it, students can only guess what is inside.
+Gameplay
+* Travel through the bunker. The main character explores different places in the KBTU bunker.
+* Collecting hints and keys: Along the way you will come across notes from a past visitor to the bunker who was unable to get out of being locked up. They will help our character.
+* Enemies and dangers: On the way there will be a monster who will try to kill our character; you can always hide from him in the closet.
+Graphics and design
+* Unique art style: The visual style of the game is based on side view and pixel art.
+* Atmosphere: The game's atmosphere creates tension and mystery, inspired by the dark and dangerous environment of a bunker.
+Control
+*Using the Keyboard: The player controls the character using the arrow keys to move left and right, up and down.
+* Interactivity: The player can interact with various objects in the game by pressing the "Z" key.
+System requirements
+* Operating system: Windows 7/8/10, macOS, Linux
+* Processor: 2 GHz and above
+*RAM: 2 GB or higher
+* Video card: OpenGL 3.0 compatible
+* Free hard disk space: 500 MB
+Development team
+* Zhantoir Nursultan(@a1_234n) - Programmer
+* Abisheva Yasmin (@yasenaaa) - Artist, level designer
+* Akmurzaev Zhanarys (@akmurzaev) - Programmer
+* Diana Marzaeva (@mewdiaana) - game designer
+* Makymov Alikhan (@makymovv) - Project Manager, documentation
