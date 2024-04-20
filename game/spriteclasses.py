@@ -147,7 +147,7 @@ class Witch(pygame.sprite.Sprite):
         super().__init__()
         self.screen = screen
         self.scare_trigger = False
-        self.image =pygame.image.load("images/monster_big.png")
+        self.image =pygame.image.load("images/sprites/monster/monster_big.png")
         self.rect = self.image.get_rect()
         self.sfx = sfx["jumpscare"]
 
@@ -159,8 +159,9 @@ class Witch(pygame.sprite.Sprite):
         self.channel.play(self.sfx)
         pygame.display.flip()
         pygame.time.delay(1000)
-        self.screen.fill((0,0,0))
-        pygame.time.delay((1000))
+        self.screen.fill((110,0,0))
+        pygame.display.flip()
+        pygame.time.delay((2000))
         self.scare_trigger = False
         
 
