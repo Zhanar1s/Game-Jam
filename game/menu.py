@@ -14,6 +14,7 @@ class Menu():
 
         self.title = pygame.image.load("images/gone.png")
         self.title_rect = self.title.get_rect(center = (640, 240))
+        self.prev_scene = "scene1"
 
         for button in (self.play_button, self.exit_button, self.settings_button):
             button.add_to_main_buttons()
@@ -34,7 +35,7 @@ class Menu():
                 pygame.quit()
                 exit()
             elif self.play_button.rect.collidepoint(mouse_pos):
-                self.scene_manager.set_scene("scene1")
+                self.scene_manager.set_scene(self.scene_manager.prev_scene)
 
         self.screen.blit(self.title, self.title.get_rect(center = self.title_rect.center))
 

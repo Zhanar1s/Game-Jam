@@ -33,7 +33,7 @@ class Player(pygame.sprite.Sprite):
         self.old_x = 0
         self.old_y = 0
 
-        self.speed = 4
+        self.speed = 8
 
         self.moving = {
                 "left" : False,
@@ -141,6 +141,29 @@ class Wall(pygame.sprite.Sprite):
     @classmethod
     def delete_all(cls):
         cls.walls.empty()
+
+class Witch(pygame.sprite.Sprite):
+    def __init__(self, screen):
+        super().__init__()
+        self.screen = screen
+        self.scare_trigger = False
+        self.image =pygame.image.load("images/monster_big.png")
+        self.rect = self.image.get_rect()
+        self.sfx = sfx["jumpscare"]
+
+        self.channel = pygame.mixer.Channel(1)
+
+    def scare(self, player):
+        self.rect.center = (player.rect.center[0] - 400, player.rect.center[1])
+        self.screen.blit(self.image, self.rect)
+        self.channel.play(self.sfx)
+        pygame.display.flip()
+        pygame.time.delay(1000)
+        self.screen.fill((0,0,0))
+        pygame.time.delay((1000))
+        self.scare_trigger = False
+        
+
 
 class Door():
     def __init__(self, screen, pos):
