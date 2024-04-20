@@ -88,6 +88,6 @@ class Note(Interactable):
     def blit(self, screen):
         screen.blit(self.image, self.rect)
 
-        
+#spoiler alert! this part spoils the entire plot. keep that in mind        
 
-
+class

@@ -337,7 +337,9 @@ class Scene5():
         self.sfx_channel = pygame.mixer.Channel(1)
 
     def run(self):
+        
         self.wall1 = Wall((0,0), (1280,200))
+        self.wall2 = Wall((240,280),(380,80))
         self.screen.blit(self.bg, (0,0))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -364,6 +366,7 @@ class Scene5():
 
         self.dim.darken(150)
         self.lantern.blit((100,100,100), size=5)
+
 
         self.paper.interaction(self.player, self.screen, keys)
         self.border.interaction(self.player, self.screen, keys)
@@ -426,7 +429,7 @@ class Scene7():
         self.bg = pygame.transform.scale(pygame.image.load('images/room/room7.png'), (1280, 720))
         self.paper = Note(1, (300, 600, 64, 64), room="room7", item="papernote6")
         self.player = Player(self.screen, (50,600))
-
+        self.witch = Witch(self.screen)
 
         self.lantern = Light(self.screen, (220,220,220), 25, (self.player.rect.x + 97, self.player.rect.y + 152))
         self.dim = Dim(self.screen)
@@ -437,6 +440,7 @@ class Scene7():
 
     def run(self):
         self.wall1 = Wall((0,0), (1280,200))
+        self.wall2 = Wall((240,280),(700,80))
         self.screen.blit(self.bg, (0,0))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -451,6 +455,10 @@ class Scene7():
                         self.border.enable = True
 
         keys = pygame.key.get_pressed()
+        if self.player.rect.x >= self.screen.get_width() - self.player.rect.width - 10:
+            self.witch.scare(self.player)
+            Wall.delete_all()
+            self.scene_manager.set_scene("limbo")
 
         self.paper.blit(self.screen)
         self.player.move(keys, self.lantern)
@@ -462,3 +470,32 @@ class Scene7():
         self.paper.interaction(self.player, self.screen, keys)
         self.border.interaction(self.player, self.screen, keys)
         self.player.wall_collision(Wall.walls)
+
+class Limbo():
+    def __init__(self, screen, scene_manager):
+        self.screen = screen
+        self.scene_manager = scene_manager
+
+        self.bg = pygame.image.load("images/room/room00.jpg")
+        self.bg_rect = self.bg.get_rect(center = (640, 360))
+
+        self.channel = pygame.mixer.Channel(0)
+        self.player = Player(self.screen, (400,600))
+        self.limbo_monologue = Interactable(1, (0,0,1280,720), "limbo", "limbo monologue")
+
+    def run(self):
+        self.limbo_monologue.enable = True
+        self.player.blit()
+        self.screen.blit(self.bg, self.bg_rect)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    self.scene_manager.set_scene("menu", "limbo")
+
+        if self.limbo_monologue.finished:
+            self.scene_manager.set_scene("university")
+
+        keys = pygame.key.get_pressed()
+        self.limbo_monologue.interaction(self.player, self.screen, keys)

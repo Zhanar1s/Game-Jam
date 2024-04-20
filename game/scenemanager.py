@@ -4,7 +4,7 @@ from typing import Optional
 from soundbar import sfx, music
 
 from menu import Settings, Menu
-from scenes import Scene1, Scene2, Scene3, Scene4, Scene5, Scene6, Scene7, Intro
+from scenes import Scene1, Scene2, Scene3, Scene4, Scene5, Scene6, Scene7, Intro, Limbo
 
 screen_width = 1280
 screen_height = 720
@@ -35,6 +35,7 @@ class Game():
         self.scene5 = Scene5(self.screen, self.scene_manager)
         self.scene6 = Scene6(self.screen, self.scene_manager)
         self.scene7 = Scene7(self.screen, self.scene_manager)
+        self.limbo = Limbo(self.screen, self.scene_manager)
 
 
 
@@ -55,6 +56,7 @@ class Game():
             "scene5" : self.scene5,
             "scene6" : self.scene6,
             "scene7" : self.scene7,
+            "limbo" : self.limbo
         }
 
     def run(self):

@@ -11,13 +11,14 @@
             "You are doing a research project with an old friend of yours",
             "Today, you had a rather productive day",
             "You came to uni early, and you were about to leave when..........",
-            "When you suddenly fell asleep in a hallway",
+            "When you suddenly fell asleep in a random classroom",
+            "You wake up still pretty sleapy",
             "You realize that you are the only person here",
             "The front door seemes to be locked!",
             "You have no choice but to look for a night guard",
             "You see a pale light in the distance",
             "You enter a room you have never been to",
-            "And...."
+            "And.................................."
         ]
     },
     "allrooms":{
@@ -75,24 +76,58 @@
     },
     "room5":{
         "papernote4" : [
+            "Note4",
             "I can't. I CAN'T. This is too much for my mental health.",
             "I hear sounds where they should not be",
-            ""
+            "Sometimes I start hearing the sound of a piano......",
+            "She also played the piano....",
+            "She was very talented unlike me..........",
+            "She also loved drawing.",
+            "And she would never get tired. She was so excited about life",
+            "She would always smile despite anything",
+            "I....",
+            ".................(The rest is unclear)"
         ]
     },
     "room6":{
         "papernote5" : [
-            " "
+            "Note5",
+            "If I made it out of here....",
+            "If i could endure this fearsome place...",
+            "I would go see her. My little sister.",
+            "I hope she does not get mad.",
+            "I didn't really visit her because of uni stuff",
+            "I have to get out of here"
         ]
     },
     "room7":{
         "papernote6" : [
-            " "
+            "Note???",
+            "I think this is it - The exit!"
         ]
     },
-    "room8":{
-        "papernote7" : [
-            " "
+    "limbo":{
+        "limbo monologue" : [
+            "I.......................",
+            "I cannot................",
+            "The same nightmare every time.",
+            "Her Deformed Ghost brings back memories",
+            "Memories of Meiram - my dear little sister.",
+            "I cannot forget what she meant for me",
+            "And I also cannot forgive myself for my ignorance..",
+            "and selfishness.",
+            "I did not give her as much time or attention",
+            "as she truly deserved",
+            "She would always try to make me smile when I was sad.",
+            "But I...............",
+            "I did not visit her till the day she got the diagnosis.",
+            "She... would leave for 1-2 months at this rate..........",
+            "I tried to compensate for everything in this short time.",
+            "But......................................",
+            "I am so sorry.",
+            "Guess I have no choice but to experience this hell",
+            "Every day, again,  and again, and again, and again, and again, and again, and again, and again, and again,"
+
         ]
     }
 }
