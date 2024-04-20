@@ -70,6 +70,7 @@ class Interactable(pygame.sprite.Sprite):
         pygame.draw.rect(screen, self.rect_color, self.rect)
 
 
+
 class Note(Interactable):
     def __init__(self, text_speed, rect, room, item):
         super().__init__(text_speed, rect, room, item)
@@ -78,3 +79,7 @@ class Note(Interactable):
 
     def blit(self, screen):
         screen.blit(self.image, self.rect)
+
+
+
+
