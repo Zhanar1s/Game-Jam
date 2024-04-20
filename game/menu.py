@@ -88,23 +88,23 @@ class Slider():
 
         return (button_val/val_range)*(self.max - self.min) + self.min
 
-
+'''
 def show_title(screen, title_text):
-    '''
+    ''''''
     Simply blits the title on the screen
     Also used to display Paused when the game is paused
-    '''
+    ''''''
     title_font = pygame.font.Font(None, 100)
     title_rect = pygame.Rect(250,150, 700,100)
     title = title_font.render(title_text, True, (255,255,255))
     screen.blit(title, title.get_rect(center = title_rect.center))
 
 def settings(screen, bgm_channel, sfx_channel):
-    '''
+    ''''''
     A function that opens up a settings menu
     Inside of it, one can change the volume, view the stats and change the color of the player
     By default, returns the player's color (if not selected, just the white color)
-    '''
+    ''''''
     back = False
     #font
     settings_font = pygame.font.Font(None, 40)
@@ -171,12 +171,12 @@ def settings(screen, bgm_channel, sfx_channel):
 
 
 def game_menu(bgm_channel : pygame.mixer.Channel, sfx_channel : pygame.mixer.Channel, menu_type : str):
-    '''
+    ''''''
     The function that creates either a main or pause menu
     To create a main menu: specify menu_type = "main", to create a pause menu: menu_type = "pause"
     Requires stats_dict (a dictionary of stats extracted from the json file), bgm and sfx channels (audio channels)
 
-    '''
+    ''''''
     loop = True
     to_main_menu = False
     screen = pygame.display.set_mode((1280,720))
@@ -226,3 +226,4 @@ def game_menu(bgm_channel : pygame.mixer.Channel, sfx_channel : pygame.mixer.Cha
     if to_main_menu:
         game_menu(bgm_channel, sfx_channel, "main")
     
+'''

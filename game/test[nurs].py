@@ -3,7 +3,7 @@ from spriteclasses import Player, Door, Wall
 from interaction import Interactable
 from lighting import Dim, Light
 from soundbar import sfx
-from menu import *
+from scenemanager import Game
 
 pygame.init()
 screen = pygame.display.set_mode((1280, 720))
@@ -32,46 +32,44 @@ sfx_channel = pygame.mixer.Channel(1)
 
 
 
-game_menu(bgm_channel, sfx_channel, "main")
-
 sfx_channel.play(sfx["ambience"], -1)
-def scene1():
-    run = True
-    while run:
-        screen.blit(bg, (0,0))
-        clock.tick(60)
 
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                run = False
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_z:
-                    if notebook.rect.colliderect(player.rect):
-                        notebook.enable = True
-                    if puddle.rect.colliderect(player.rect):
-                        puddle.enable = True
-                    if door.rect.colliderect(player.rect):
-                        door.open_door()
-                if event.key == pygame.K_ESCAPE:
-                    game_menu(bgm_channel, sfx_channel, "pause")
+run = True
+while run:
+    screen.blit(bg, (0,0))
+    clock.tick(60)
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_z:
+                if notebook.rect.colliderect(player.rect):
+                    notebook.enable = True
+                if puddle.rect.colliderect(player.rect):
+                    puddle.enable = True
+                if door.rect.colliderect(player.rect):
+                    door.open_door()
+            if event.key == pygame.K_ESCAPE:
+                game_menu(bgm_channel, sfx_channel, "pause")
 
 
-        keys = pygame.key.get_pressed()
+    keys = pygame.key.get_pressed()
 
-        player.move(keys, lantern)
+    player.move(keys, lantern)
 
-        door.blit()
-        player.blit()
+    door.blit()
+    player.blit()
 
-        dim.darken(150)
+    dim.darken(150)
 
-        lantern.blit((100,100,100), size=5)
+    lantern.blit((100,100,100), size=5)
 
-        notebook.interaction(player, screen, keys)
-        puddle.interaction(player, screen, keys)
+    notebook.interaction(player, screen, keys)
+    puddle.interaction(player, screen, keys)
 
-        player.wall_collision(Wall.walls)
-        # wall1.show_test(screen)
+    player.wall_collision(Wall.walls)
+    # wall1.show_test(screen)
 
-        pygame.display.update()
-scene1()
+    pygame.display.update()
+
