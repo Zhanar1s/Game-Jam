@@ -4,14 +4,14 @@ from typing import Optional
 from soundbar import sfx, music
 
 from menu import Settings, Menu
-from scenes import Scene1, Scene2, Scene3, Scene4, Scene5, Scene6, Scene7
+from scenes import Scene1, Scene2, Scene3, Scene4, Scene5, Scene6, Scene7, Intro
 
 screen_width = 1280
 screen_height = 720
 
 class Game():
     '''
-    Main game class.
+    Main game class. 
     '''
     def __init__(self):
         pygame.init()
@@ -27,6 +27,7 @@ class Game():
         self.scene_manager = Scene_manager("menu")
         self.menu = Menu(self.screen, self.scene_manager)
         self.settings = Settings(self.screen, self.scene_manager)
+        self.intro = Intro(self.screen, self.scene_manager)
         self.scene1 = Scene1(self.screen, self.scene_manager)
         self.scene2 = Scene2(self.screen, self.scene_manager)
         self.scene3 = Scene3(self.screen, self.scene_manager)
@@ -46,6 +47,7 @@ class Game():
         self.scenes = {
             "menu" : self.menu,
             "settings" : self.settings,
+            "intro" : self.intro,
             "scene1" : self.scene1,
             "scene2" : self.scene2,
             "scene3" : self.scene3,
@@ -67,7 +69,7 @@ class Game():
             Here we call the get_scene function of scene manager and according to the returned value, we play this scene
             '''
             self.scenes[self.scene_manager.get_scene()].run()
-
+            
             pygame.display.update()
             self.clock.tick(60)
 
@@ -79,7 +81,7 @@ class Scene_manager():
     '''
     def __init__(self, current_scene):
         self.current_scene = current_scene
-        self.prev_scene = "scene1"
+        self.prev_scene = "intro"
 
     def get_scene(self):
         return self.current_scene

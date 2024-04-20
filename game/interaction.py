@@ -8,6 +8,7 @@ with open("text/dialogs.json", "r") as json_data:
     dialog_data = json.load(json_data)
 
 class Interactable(pygame.sprite.Sprite):
+
     '''
     Class for object interaction
     '''
@@ -26,6 +27,7 @@ class Interactable(pygame.sprite.Sprite):
 
         self.done = False
         self.enable = False
+        self.finished = False
 
         Interactable.all_object_rects.append(self.rect)
 
@@ -33,7 +35,9 @@ class Interactable(pygame.sprite.Sprite):
         '''
         Identifying if player interacted with an object and calls a rpint_out function to display correpsonding text
         '''
-        # pygame.draw.rect(screen, self.rect_color, self.rect)
+        if self.text_index == len(self.text) - 1:
+            self.finished = True
+
 
         if player.rect.colliderect(self.rect):
 
@@ -44,12 +48,9 @@ class Interactable(pygame.sprite.Sprite):
                     self.text_clock = 0
                 self.print_out(screen)
 
-
         else:
             self.text_clock = 0
-
             self.enable = False
-
 
 
     def print_out(self, screen):
@@ -81,7 +82,7 @@ class Note(Interactable):
     '''
     def __init__(self, text_speed, rect, room, item):
         super().__init__(text_speed, rect, room, item)
-        self.image = pygame.image.load("images/paper.png")
+        self.image = pygame.image.load("images/items/paper.png")
         self.rect = self.image.get_rect(topleft = self.rect.topleft)
 
     def blit(self, screen):
