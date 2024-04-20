@@ -1,9 +1,9 @@
 {
     "room1":{
         "notebook" : [
-            "An old notebook on a table", 
-            "It has some calc notes...", 
-            "But most of the pages are torn out", 
+            "An old notebook on a table",
+            "It has some calc notes...",
+            "But most of the pages are torn out",
             "As if the owner wanted to write somethign else"
         ],
         "puddle":[
@@ -23,6 +23,36 @@
             "I also hope that the WITCH part of this story would not happen to me.....",
             "I am starting to feel Lonely but not Alone",
             "I feel some precense"
-        ] 
+        ]
+    },
+    "room3":{
+        "papernote2" : [
+            " "
+        ]
+    },
+    "room4":{
+        "papernote3" : [
+            " "
+        ]
+    },
+    "room5":{
+        "papernote4" : [
+            " "
+        ]
+    },
+    "room6":{
+        "papernote5" : [
+            " "
+        ]
+    },
+    "room7":{
+        "papernote6" : [
+            " "
+        ]
+    },
+    "room8":{
+        "papernote7" : [
+            " "
+        ]
     }
 }
