@@ -158,7 +158,7 @@ class Scene3():
 
         self.player.blit()
 
-        self.dim.darken(70)
+        self.dim.darken(150)
 
         self.lantern.blit((100,100,100), size=5)
 
@@ -209,7 +209,7 @@ class Scene4():
 
         self.player.blit()
 
-        self.dim.darken(70)
+        self.dim.darken(150)
 
         self.lantern.blit((100,100,100), size=5)
 
@@ -260,7 +260,7 @@ class Scene5():
 
         self.player.blit()
 
-        self.dim.darken(70)
+        self.dim.darken(150)
 
         self.lantern.blit((100,100,100), size=5)
 
@@ -311,7 +311,7 @@ class Scene6():
 
         self.player.blit()
 
-        self.dim.darken(70)
+        self.dim.darken(90)
 
         self.lantern.blit((100,100,100), size=5)
 
@@ -362,7 +362,7 @@ class Scene7():
 
         self.player.blit()
 
-        self.dim.darken(70)
+        self.dim.darken(90)
 
         self.lantern.blit((100,100,100), size=5)
 
@@ -408,7 +408,7 @@ class Scene8():
 
         self.player.blit()
 
-        self.dim.darken(70)
+        self.dim.darken(190)
 
         self.lantern.blit((100,100,100), size=5)
 
