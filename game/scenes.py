@@ -306,7 +306,7 @@ class Scene4():
             self.dim.darken(220)
 
         if keys[pygame.K_z] and self.hidden and self.timer > 240:
-            if self.timer < 1000:
+            if self.timer < 500:
                 self.witch.scare(self.player)
                 self.scene_manager.set_scene("menu", "scene1")
             else:
