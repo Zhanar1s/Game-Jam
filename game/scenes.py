@@ -255,6 +255,7 @@ class Scene4():
 
         self.bgm_channel = pygame.mixer.Channel(0)
         self.sfx_channel = pygame.mixer.Channel(1)
+        self.played = False
 
     def run(self):
         self.wall1 = Wall((0,0), (1280,200))
@@ -264,15 +265,12 @@ class Scene4():
         self.wall5 = Wall((500,300), (130, 80))
 
 
-        
-        print(self.timer)
-
         self.screen.blit(self.bg, (0,0))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
+                if event.key == pygame.K_ESCAPE and not self.hidden:
                     self.scene_manager.set_scene("menu", "scene4")
                 if event.key == pygame.K_z:
                     if self.paper.rect.colliderect(self.player.rect):
@@ -282,8 +280,10 @@ class Scene4():
                     elif self.locker_rect.colliderect(self.player.rect):
                         self.locker = self.locker_closed
                         self.hidden = True
-                        if self.timer > 120:
-                            self.sfx_channel.play(sfx["steps"])
+
+        if self.timer > 240 and not self.played:
+            self.sfx_channel.play(sfx["steps"])
+            self.played = True
 
         if not self.locked:
             if self.player.rect.x >= self.screen.get_width() - self.player.rect.width - 10:
@@ -303,11 +303,12 @@ class Scene4():
             self.dim.darken(150)
             self.lantern.blit((100,100,100), size=5)
         else:
-            self.dim.darken(240)
+            self.dim.darken(220)
 
-        if keys[pygame.K_z] and self.hidden and self.timer > 120:
-            if self.sfx_channel.get_busy():
+        if keys[pygame.K_z] and self.hidden and self.timer > 240:
+            if self.timer < 1000:
                 self.witch.scare(self.player)
+                self.scene_manager.set_scene("menu", "scene1")
             else:
                 self.hidden = False
                 self.locked = False
