@@ -33,7 +33,7 @@ class Player(pygame.sprite.Sprite):
         self.old_x = 0
         self.old_y = 0
 
-        self.speed = 4
+        self.speed = 8
 
         self.moving = {
                 "left" : False,
@@ -55,16 +55,14 @@ class Player(pygame.sprite.Sprite):
             for key in self.moving.keys():
                 self.moving[key] = False
             self.moving["back"] = True
-            self.rect.y -= self.speed
-            # self.rect.y = max(self.rect.y - self.speed, 0 + 150)
+            self.rect.y = max(self.rect.y - self.speed, 0)
             lantern.pos = (self.rect.x+97, self.rect.y+152)
 
         elif pressed[pygame.K_DOWN]:
             for key in self.moving.keys():
                 self.moving[key] = False
             self.moving["face"] = True
-            self.rect.y += self.speed
-            # self.rect.y = min(self.rect.y + self.speed, self.screen.get_height()-self.rect.height)
+            self.rect.y = min(self.rect.y + self.speed, self.screen.get_height()-self.rect.height)
             lantern.pos = (self.rect.x + 97, self.rect.y + 152)
 
         elif pressed[pygame.K_LEFT]:
@@ -78,7 +76,7 @@ class Player(pygame.sprite.Sprite):
             for key in self.moving.keys():
                 self.moving[key] = False
             self.moving["right"] = True
-            self.rect.x += self.speed
+            self.rect.x = min(self.screen.get_width() - self.rect.width, self.rect.x + self.speed)
             lantern.pos = (self.rect.x + self.rect.width + 30, self.rect.y + 182)
         else:
             self.moving["right"] = False
@@ -140,7 +138,34 @@ class Wall(pygame.sprite.Sprite):
         for wall in Wall.walls:
             pygame.draw.rect(screen, (255,255,255), wall.rect, 4)
 
-class Door:
+    @classmethod
+    def delete_all(cls):
+        cls.walls.empty()
+
+class Witch(pygame.sprite.Sprite):
+    def __init__(self, screen):
+        super().__init__()
+        self.screen = screen
+        self.scare_trigger = False
+        self.image =pygame.image.load("images/monster_big.png")
+        self.rect = self.image.get_rect()
+        self.sfx = sfx["jumpscare"]
+
+        self.channel = pygame.mixer.Channel(1)
+
+    def scare(self, player):
+        self.rect.center = (player.rect.center[0] - 400, player.rect.center[1])
+        self.screen.blit(self.image, self.rect)
+        self.channel.play(self.sfx)
+        pygame.display.flip()
+        pygame.time.delay(1000)
+        self.screen.fill((0,0,0))
+        pygame.time.delay((1000))
+        self.scare_trigger = False
+        
+
+
+class Door():
     def __init__(self, screen, pos):
         self.screen = screen
 
