@@ -1,6 +1,4 @@
 
-
-
 import pygame
 import json
 import re
@@ -10,15 +8,17 @@ with open("text/dialogs.json", "r") as json_data:
     dialog_data = json.load(json_data)
 
 class Interactable(pygame.sprite.Sprite):
+    '''
+    Class for object interaction
+    '''
     all_object_rects = []
-    def __init__(self, text_speed, rect, rect_color, room, item):
+    def __init__(self, text_speed, rect, room, item):
         self.text_speed = text_speed
         self.text_clock = 0
         self.text_index = 0
         self.text = dialog_data[room][item]
         self.message = self.text[self.text_index]
 
-        self.rect_color = rect_color
         self.rect = pygame.Rect(rect)
 
         self.font = pygame.font.SysFont("superlegendboy", 23)
@@ -30,6 +30,9 @@ class Interactable(pygame.sprite.Sprite):
         Interactable.all_object_rects.append(self.rect)
 
     def interaction(self, player, screen, pressed):
+        '''
+        Identifying if player interacted with an object and calls a rpint_out function to display correpsonding text
+        '''
         # pygame.draw.rect(screen, self.rect_color, self.rect)
 
         if player.rect.colliderect(self.rect):
@@ -72,8 +75,17 @@ class Interactable(pygame.sprite.Sprite):
 
 
 
+class Note(Interactable):
+    '''
+    Child class of Interactable. Used to display paper notes
+    '''
+    def __init__(self, text_speed, rect, room, item):
+        super().__init__(text_speed, rect, room, item)
+        self.image = pygame.image.load("images/paper.png")
+        self.rect = self.image.get_rect(topleft = self.rect.topleft)
 
-
+    def blit(self, screen):
+        screen.blit(self.image, self.rect)
 
         
 
