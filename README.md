@@ -1,0 +1,2 @@
+# GONE game project
+## Installation
