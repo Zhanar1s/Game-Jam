@@ -6,14 +6,15 @@ class Menu():
         self.screen = screen
         self.scene_manager = scene_manager
 
-        self.bg = pygame.transform.scale(pygame.image.load("images/menu_back.png"), (1280,720))
+        self.bg = pygame.transform.scale(pygame.image.load("images/buttons/menu_back.png"), (1280,720))
 
         self.play_button = Button((640,400), "images/buttons/play.png")
         self.settings_button = Button((640,500), "images/buttons/settings.png")
         self.exit_button = Button((640,600), "images/buttons/quit.png")
 
-        self.title = pygame.image.load("images/gone.png")
+        self.title = pygame.image.load("images/buttons/gone.png")
         self.title_rect = self.title.get_rect(center = (640, 240))
+        self.prev_scene = "intro"
 
         for button in (self.play_button, self.exit_button, self.settings_button):
             button.add_to_main_buttons()
@@ -34,7 +35,8 @@ class Menu():
                 pygame.quit()
                 exit()
             elif self.play_button.rect.collidepoint(mouse_pos):
-                self.scene_manager.set_scene("scene1")
+                
+                self.scene_manager.set_scene(self.scene_manager.prev_scene)
 
         self.screen.blit(self.title, self.title.get_rect(center = self.title_rect.center))
 

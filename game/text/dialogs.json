@@ -1,10 +1,40 @@
 {
+    "intro":{
+        "intro monologue":[
+            "It is April outside.",
+            "This month brings back memories...",
+            ".....................most of them are not as happy as they seemed",
+            "You are currently a master's student at KBTU.",
+            "You do not have any specific hobbies at all.",
+            "You are not a brilliant student.",
+            "In fact, you study at the bare minimum level for scholarship.",
+            "You are doing a research project with an old friend of yours",
+            "Today, you had a rather productive day",
+            "You came to uni early, and you were about to leave when..........",
+            "When you suddenly fell asleep in a random classroom",
+            "You wake up still pretty sleapy",
+            "You realize that you are the only person here",
+            "The front door seemes to be locked!",
+            "You have no choice but to look for a night guard",
+            "You see a pale light in the distance",
+            "You enter a room you have never been to",
+            "And.................................."
+        ]
+    },
+    "allrooms":{
+        "border" : [
+            "No Way Back"
+        ],
+        "locked":[
+            "It is locked"
+        ]
+    },
     "room1":{
         "notebook" : [
             "An old notebook on a table",
             "It has some calc notes...",
             "But most of the pages are torn out",
-            "As if the owner wanted to write somethign else"
+            "As if the owner wanted to write something else"
         ],
         "puddle":[
             "Dark red liquid is spilled all over the floor",
@@ -16,7 +46,7 @@
     "room2":{
         "papernote1" : [
             "Note1",
-            "Had to take out some pages out of my calc3 notebook to write notes",
+            "Had to take out some pages out of my calc2 notebook to write notes",
             "Maybe I should leave them as I walk through this basement...",
             "...like Hensel and Gretel",
             "I hope that I will be able to return home just like in this story",
@@ -27,32 +57,129 @@
     },
     "room3":{
         "papernote2" : [
-            " "
+            "Note2",
+            "I think I am starting to hear things...",
+            "Each step echoes through the entire basement",
+            "I cannot tell if it was me or perhaps seomthing or someone else",
+            "I wish I could return back home as soon as possible",
+            "I remember I was asked by my dad to help my ............",
+            "(The corner of the paper was ripped apart)"
+        ],
+        "painting" : [
+            "You found a key behind the painting of Qonaev (or Kunaev)"
         ]
     },
     "room4":{
         "papernote3" : [
-            " "
+            "HIDE!"
         ]
     },
     "room5":{
         "papernote4" : [
-            " "
+            "Note4",
+            "I can't. I CAN'T. This is too much for my mental health.",
+            "I hear sounds where they should not be",
+            "Sometimes I start hearing the sound of a piano......",
+            "She also played the piano....",
+            "She was very talented unlike me..........",
+            "She also loved drawing.",
+            "And she would never get tired. She was so excited about life",
+            "She would always smile despite anything",
+            "I....",
+            ".................(The rest is unclear)"
         ]
     },
     "room6":{
         "papernote5" : [
-            " "
+            "Note5",
+            "If I made it out of here....",
+            "If i could endure this fearsome place...",
+            "I would go see her. My little sister.",
+            "I hope she does not get mad.",
+            "I didn't really visit her because of uni stuff",
+            "I have to get out of here"
         ]
     },
     "room7":{
         "papernote6" : [
-            " "
+            "Note???",
+            "I think this is it - The exit!"
         ]
     },
-    "room8":{
-        "papernote7" : [
-            " "
+    "limbo":{
+        "limbo monologue" : [
+            "I.......................",
+            "I cannot................",
+            "The same nightmare every time.",
+            "Her Deformed Ghost brings back memories",
+            "Memories of Meiram - my dear little sister.",
+            "I cannot forget what she meant for me",
+            "And I also cannot forgive myself for my ignorance..",
+            "and selfishness.",
+            "I did not give her as much time or attention",
+            "as she truly deserved",
+            "She would always try to make me smile when I was sad.",
+            "But I...............",
+            "I did not visit her till the day she got the diagnosis.",
+            "She... would leave for 1-2 months at this rate..........",
+            "I tried to compensate for everything in this short time.",
+            "But......................................",
+            "I am so sorry.",
+            "Guess I have no choice but to experience this hell",
+            "Every day, again,  and again, and again, and again, and again, and again, and again, and again, and again,"
+
+        ]
+    },
+    "university":{
+        "friend":[
+            "I woke up",
+            "I noticed my entire shirt being wet because of my tears",
+            "It is embarassing",
+            "I saw someone coming in the room the next moment",
+            "Oh! So you actually were in the uni, after all",
+            "Yes. I am here. What do you want?",
+            "What do I want?",
+            "Maybe I want you to finally help me with our project!",
+            "But I was working on it a lot today, I swear!",
+            "Ok, I will trust you. So, I actually had a particular question to ask yo-",
+            "Wait, are you crying?!",
+            "No!",
+            "Wait! This is actually concerning! If you have some problems you should",
+            "probably share them with someone, I am sure, it will feel better",
+            "If you have some burden on your mind, feel free to tell me",
+            "We were friends since the very start of our student lives",
+            "I decided to just tell her everything. I probably looked pathetic",
+            "....I did not know you were carrying this weight all along",
+            "Even though, not many people nowadays pay attention to it",
+            "I think that being aware of yourself, venting to others sometime,",
+            "Going to a psychologist is normal for guys too",
+            "Also, I am so sorry to hear about your sister",
+            "...But don't you think that she would not want you to be like that",
+            "You said she always cared about you and your happines",
+            "So even though she is not with us anymore, you should live",
+            "Live a full, free life devoided of constant guilt and regret",
+            "I was stunned by what she said",
+            "I have heard stuff like that before.",
+            "But hearing her say that felt...",
+            "Special because she is my good friend",
+            "We decided to go to a coffee shop afterwards"
+        ]
+    },
+    "finale":{
+        "finale monologue":[
+            "Ever since that day. Ever since that talk with Asem",
+            "I have not seen that nightmare again.",
+            "I finally visited my sister's grave.",
+            "I finally started talking to other people without beign ashamed of myself",
+            "Life just started to become better and better over time",
+            "I still remember the time I spent with my sister during her last month",
+            "I still treasure the moments we shared together",
+            "But I was finally free from my cage - my dark cramped basement",
+            "It is April outside!",
+            "And my entire life is still ahead!",
+            "I will live happily for both of us, Meiram",
+            "May you rest in peace",
+            "The End."
         ]
     }
 }
