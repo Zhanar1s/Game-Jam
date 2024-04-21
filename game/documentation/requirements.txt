@@ -1,3 +1,6 @@
-pygame
-sprites
-SuperLegendBoy
+pygame (pygame module)
+images (all of these folders)
+music
+sfx
+text
+SuperLegendBoy.ttf (installed on the local machine)

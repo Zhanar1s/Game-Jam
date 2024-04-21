@@ -14,6 +14,7 @@ sfx = {
 
 music = {
     "menusong" : pygame.mixer.Sound("music/menusong.mp3"),
+    "limbotheme" : pygame.mixer.Sound("music/limbotheme.mp3")
 }
 
         

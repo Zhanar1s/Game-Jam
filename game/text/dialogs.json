@@ -129,5 +129,57 @@
             "Every day, again,  and again, and again, and again, and again, and again, and again, and again, and again,"
 
         ]
+    },
+    "university":{
+        "friend":[
+            "I woke up",
+            "I noticed my entire shirt being wet because of my tears",
+            "It is embarassing",
+            "I saw someone coming in the room the next moment",
+            "Oh! So you actually were in the uni, after all",
+            "Yes. I am here. What do you want?",
+            "What do I want?",
+            "Maybe I want you to finally help me with our project!",
+            "But I was working on it a lot today, I swear!",
+            "Ok, I will trust you. So, I actually had a particular question to ask yo-",
+            "Wait, are you crying?!",
+            "No!",
+            "Wait! This is actually concerning! If you have some problems you should",
+            "probably share them with someone, I am sure, it will feel better",
+            "If you have some burden on your mind, feel free to tell me",
+            "We were friends since the very start of our student lives",
+            "I decided to just tell her everything. I probably looked pathetic",
+            "....I did not know you were carrying this weight all along",
+            "Even though, not many people nowadays pay attention to it",
+            "I think that being aware of yourself, venting to others sometime,",
+            "Going to a psychologist is normal for guys too",
+            "Also, I am so sorry to hear about your sister",
+            "...But don't you think that she would not want you to be like that",
+            "You said she always cared about you and your happines",
+            "So even though she is not with us anymore, you should live",
+            "Live a full, free life devoided of constant guilt and regret",
+            "I was stunned by what she said",
+            "I have heard stuff like that before.",
+            "But hearing her say that felt...",
+            "Special because she is my good friend",
+            "We decided to go to a coffee shop afterwards"
+        ]
+    },
+    "finale":{
+        "finale monologue":[
+            "Ever since that day. Ever since that talk with Asem",
+            "I have not seen that nightmare again.",
+            "I finally visited my sister's grave.",
+            "I finally started talking to other people without beign ashamed of myself",
+            "Life just started to become better and better over time",
+            "I still remember the time I spent with my sister during her last month",
+            "I still treasure the moments we shared together",
+            "But I was finally free from my cage - my dark cramped basement",
+            "It is April outside!",
+            "And my entire life is still ahead!",
+            "I will live happily for both of us, Meiram",
+            "May you rest in peace",
+            "The End."
+        ]
     }
 }
