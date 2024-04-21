@@ -1,9 +1,9 @@
 import pygame
 pygame.init()
 from spriteclasses import Player, Wall, Door, Witch
-from interaction import Interactable, Note
+from interaction import Interactable, Note, Friend
 from lighting import Light, Dim
-from soundbar import sfx
+from soundbar import sfx, music
 
 class Intro():
     def __init__(self, screen, scene_manager):
@@ -479,11 +479,12 @@ class Limbo():
         self.bg = pygame.image.load("images/room/room00.jpg")
         self.bg_rect = self.bg.get_rect(center = (640, 360))
 
-        self.channel = pygame.mixer.Channel(0)
+
         self.player = Player(self.screen, (400,600))
         self.limbo_monologue = Interactable(1, (0,0,1280,720), "limbo", "limbo monologue")
 
     def run(self):
+        
         self.limbo_monologue.enable = True
         self.player.blit()
         self.screen.blit(self.bg, self.bg_rect)
@@ -494,8 +495,62 @@ class Limbo():
                 if event.key == pygame.K_ESCAPE:
                     self.scene_manager.set_scene("menu", "limbo")
 
+
         if self.limbo_monologue.finished:
             self.scene_manager.set_scene("university")
 
         keys = pygame.key.get_pressed()
         self.limbo_monologue.interaction(self.player, self.screen, keys)
+
+
+class University():
+    def __init__(self, screen, scene_manager):
+        self.screen = screen
+        self.scene_manager = scene_manager
+        self.friend = Friend(1)
+        self.player = Player(self.screen, (300,300))
+        self.bg = pygame.transform.scale(pygame.image.load("images/room/classroom.png"), (1280, 720))
+
+
+
+    def run(self):
+        self.friend.enable = True
+        self.screen.blit(self.bg, (0,0))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    self.scene_manager.set_scene("menu", "university")
+
+        if self.friend.finished:
+            self.scene_manager.set_scene("finale")
+
+        keys = pygame.key.get_pressed()
+        self.friend.interaction(self.player, self.screen, keys)
+
+
+class Finale():
+    def __init__(self, screen, scene_manager):
+        self.screen = screen
+        self.scene_manager = scene_manager
+        self.channel = pygame.mixer.Channel(1)
+        self.player = Player(self.screen, (400,600))
+        self.finale_monologue = Interactable(1, (0,0,1280,720), "finale", "finale monologue")
+
+
+    def run(self):
+        self.finale_monologue.enable = True
+        self.player.blit()
+        self.screen.fill((0,0,0))
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                exit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    self.scene_manager.set_scene("menu", "finale")
+
+
+
+        keys = pygame.key.get_pressed()
+        self.finale_monologue.interaction(self.player, self.screen, keys)

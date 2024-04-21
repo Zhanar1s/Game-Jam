@@ -1,10 +1,9 @@
 import pygame
-from typing import Optional
 
 from soundbar import sfx, music
 
 from menu import Settings, Menu
-from scenes import Scene1, Scene2, Scene3, Scene4, Scene5, Scene6, Scene7, Intro, Limbo
+from scenes import Scene1, Scene2, Scene3, Scene4, Scene5, Scene6, Scene7, Intro, Limbo, University, Finale
 
 screen_width = 1280
 screen_height = 720
@@ -36,12 +35,15 @@ class Game():
         self.scene6 = Scene6(self.screen, self.scene_manager)
         self.scene7 = Scene7(self.screen, self.scene_manager)
         self.limbo = Limbo(self.screen, self.scene_manager)
+        self.university = University(self.screen, self.scene_manager)
+        self.finale = Finale(self.screen, self.scene_manager)
 
 
 
         self.bgm_channel = pygame.mixer.Channel(0)
         self.sfx_channel = pygame.mixer.Channel(1)
-
+        self.special_channel = pygame.mixer.Channel(3)
+        self.special_channel.set_volume(0)
         '''
         Store scenes in a dict parameter
         '''
@@ -56,12 +58,17 @@ class Game():
             "scene5" : self.scene5,
             "scene6" : self.scene6,
             "scene7" : self.scene7,
-            "limbo" : self.limbo
+            "limbo" : self.limbo,
+            "university" : self.university,
+            "finale" : self.finale
         }
-
+        
     def run(self):
         self.bgm_channel.play(music["menusong"], -1)
+        self.special_channel.play(music["limbotheme"], -1)
+        self.special_channel.pause()
         while True:
+            
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     exit()
@@ -70,7 +77,17 @@ class Game():
             The main element of the entire game.
             Here we call the get_scene function of scene manager and according to the returned value, we play this scene
             '''
-            self.scenes[self.scene_manager.get_scene()].run()
+            scene = self.scene_manager.get_scene()
+            if scene == "limbo":
+                self.bgm_channel.stop()
+                self.special_channel.unpause()
+                self.special_channel.set_volume(self.bgm_channel.get_volume())
+            elif scene == "university":
+                self.bgm_channel.stop()
+                self.special_channel.stop()
+
+            self.scenes[scene].run()
+            
             
             pygame.display.update()
             self.clock.tick(60)
