@@ -148,7 +148,7 @@ class Witch(pygame.sprite.Sprite):
         self.screen = screen
         self.scare_trigger = False
         self.image =pygame.image.load("images/sprites/monster/monster_big.png")
-        self.scream_image = pygame.image.load("images/sprites/monster/scream.png")
+        self.scream_image = pygame.transform.scale(pygame.image.load("images/sprites/monster/scream.png"), (1280,720))
         self.rect = self.image.get_rect()
         self.sfx = sfx["jumpscare"]
 
