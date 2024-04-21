@@ -1,26 +1,26 @@
-﻿Документация для игры "5 дней в КБТУ"
-Введение
-"5 дней в КБТУ" - это увлекательная 2D хоррор игра, в которой игрок в роли заблудшего студента отправляется в опасный и загадочный бункер, где остается запертым. Главный герой старается выбраться из бункера решая головоломки и прячась от монстра…
-Особенности игры
-Геймплей
-* Путешествие по бункеру. Главный персонаж исследует разные места бункера КБТУ разгадывая головоломки.
-* Сбор подсказок и ключей: По пути будут попадаться ключи и записки прошлого посетителя бункера, который не смог выбраться из заперти. Они будут помогать нашему персонажу.
-* Враги и опасности: На пути будет встречаться монстр, который будет стараться убить нашего персонажа, от него спрятаться в шкафу.
-Графика и дизайн
-* Уникальный арт-стиль: Визуальный стиль игры построен на виде сбоку и пиксель арте.
-* Атмосфера: Атмосфера игры создает напряжение и загадочность, вдохновленные темной и опасной средой бункера.
-Управление
-* Использование клавиатуры: Игрок управляет персонажем с помощью клавиш стрелок для перемещения влево и вправо, вверх и вниз.
-* Интерактивность: Игрок может взаимодействовать с различными объектами в игре, нажимая на клавишу "E".
-Системные требования
-* Операционная система: Windows 7/8/10, macOS, Linux
-* Процессор: 2 ГГц и выше
-* Оперативная память: 2 ГБ и выше
-* Видеокарта: совместимая с OpenGL 3.0
-* Свободное место на жестком диске: 500 МБ
-Команда разработчиков
-*  Жантуар Нурсултан(@a1_234n) - Программист
-* Абишева Ясмин (@yasenaaa) - Художник, дизайнер уровней
-* Акмурзаев Жанарыс (@akmurzaev) - Программист
-* Марзаева Диана (@mewdiaana) - игровой дизайнер
-* Макымов Алихан (@makymovv) - Менеджер проекта, документация
+﻿documentation for the game "5 Days at KBTU"
+Introduction
+"5 Days at KBTU" is an exciting 2D horror game in which the player in the role of a lost student goes to a dangerous and mysterious bunker, where he remains locked in. The protagonist tries to get out of the bunker by solving puzzles and hiding from the monster...
+Game Features
+Gameplay
+* Traveling through the bunker. The main character explores different areas of the KBTU bunker solving puzzles.
+* Collecting clues and keys: On the way you will come across keys and notes of the past visitor of the bunker, who could not get out of the lock. They will help our character.
+* Enemies and dangers: On the way will meet a monster who will try to kill our character, from him hide in the closet.
+Graphics and design
+* Unique art style: The visual style of the game is based on side view and pixel art.
+* Atmosphere: The atmosphere of the game creates tension and mystery, inspired by the dark and dangerous environment of the bunker.
+Controls
+* Keyboard Use: The player controls the character using the arrow keys to move left and right, up and down.
+* Interactivity: The player can interact with various objects in the game by pressing the "Z" key.
+System Requirements
+* Operating system: Windows 7/8/10, macOS, Linux
+* Processor: 2 GHz and higher
+* RAM: 2 GB and higher
+* Video card: compatible with OpenGL 3.0
+* Free hard disk space: 500 MB
+Development team
+* Zhantuar Nursultan (@a1_234n) - Programmer
+* Abisheva Yasmin (@yasenaaa) - Artist, level designer
+* Akmurzaev Zhanarys (@akmurzaev) - Programmer
+* Marzaeva Diana (@mewdiaana) - Game Designer
+* Makymov Alikhan (@makymovv) - Project Manager, Documentation
