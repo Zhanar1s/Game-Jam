@@ -227,7 +227,7 @@ class Scene3():
 
         if self.witch.scare_trigger:
             self.witch.scare(self.player)
-            self.scene_manager.set_scene("menu", "scene1")
+            exit()
 
 class Scene4():
     def __init__(self, screen, scene_manager):
@@ -308,7 +308,7 @@ class Scene4():
         if keys[pygame.K_z] and self.hidden and self.timer > 240:
             if self.timer < 500:
                 self.witch.scare(self.player)
-                self.scene_manager.set_scene("menu", "scene1")
+                exit()
             else:
                 self.hidden = False
                 self.locked = False
@@ -534,6 +534,8 @@ class Finale():
     def __init__(self, screen, scene_manager):
         self.screen = screen
         self.scene_manager = scene_manager
+
+        self.bg = pygame.transform.scale(pygame.image.load("images/room/end.png"), (1280,720))
         self.channel = pygame.mixer.Channel(1)
         self.player = Player(self.screen, (400,600))
         self.finale_monologue = Interactable(1, (0,0,1280,720), "finale", "finale monologue")
@@ -543,6 +545,7 @@ class Finale():
         self.finale_monologue.enable = True
         self.player.blit()
         self.screen.fill((0,0,0))
+        self.screen.blit(self.bg, (0,0))
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
