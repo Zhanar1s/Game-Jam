@@ -1,4 +1,5 @@
 # GONE game project
+
 ### Installation
 1. Clone the github repo at:
 ```
