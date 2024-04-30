@@ -106,11 +106,7 @@ class Player(pygame.sprite.Sprite):
 
     def wall_collision(self, walls):
         self.rect.x += (self.rect.x-self.old_x)
-<<<<<<< HEAD
-        wall_hit_list = pygame.sprite.spritecollide(self, walls, False)
-=======
         wall_hit_list = (wall for wall in walls if pygame.sprite.collide_rect(self, wall))
->>>>>>> original
         for wall in wall_hit_list:
             if (self.rect.x - self.old_x) > 0:
                 self.rect.right = wall.rect.left
@@ -118,11 +114,7 @@ class Player(pygame.sprite.Sprite):
                 self.rect.left = wall.rect.right
 
         self.rect.y += (self.rect.y - self.old_y)
-<<<<<<< HEAD
-        wall_hit_list = pygame.sprite.spritecollide(self, walls, False)
-=======
         wall_hit_list = (wall for wall in walls if pygame.sprite.collide_rect(self, wall))
->>>>>>> original
         for wall in wall_hit_list:
             if (self.rect.y - self.old_y) > 0:
                 self.rect.bottom = wall.rect.top
@@ -130,29 +122,6 @@ class Player(pygame.sprite.Sprite):
                 self.rect.top = wall.rect.bottom
 
 
-<<<<<<< HEAD
-class Wall(pygame.sprite.Sprite):
-    walls = pygame.sprite.Group()
-    def __init__(self, topleft, size):
-        super().__init__()
-        self.x = topleft[0]
-        self.y = topleft[1]
-        self.width = size[0]
-        self.height = size[1]
-        self.show = True
-        self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
-        Wall.walls.add(self)
-
-    def show_test(self, screen):
-        for wall in Wall.walls:
-            pygame.draw.rect(screen, (255,255,255), wall.rect, 4)
-
-    @classmethod
-    def delete_all(cls):
-        cls.walls.empty()
-
-=======
->>>>>>> original
 class Witch(pygame.sprite.Sprite):
     def __init__(self, screen):
         super().__init__()
@@ -170,11 +139,7 @@ class Witch(pygame.sprite.Sprite):
         self.screen.blit(self.image, self.rect)
         self.channel.play(self.sfx)
         pygame.display.flip()
-<<<<<<< HEAD
-        pygame.time.delay(1000)
-=======
         pygame.time.delay((400))
->>>>>>> original
         self.screen.blit(self.scream_image, (0,0))
         pygame.display.flip()
         pygame.time.delay((2000))
@@ -210,8 +175,6 @@ class Door():
             self.audio_channel.play(sfx["doorclose"])
             self.current_image = self.closed_image
             self.opened = False
-<<<<<<< HEAD
-=======
 
 
 
@@ -244,4 +207,3 @@ class Wall(pygame.sprite.Sprite):
     @classmethod
     def delete_all(cls, room):
         cls.walls[room] = []
->>>>>>> original
