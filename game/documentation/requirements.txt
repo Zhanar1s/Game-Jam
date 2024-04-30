@@ -1,8 +1,5 @@
 pygame (pygame module)
-<<<<<<< HEAD
-=======
 pygame-textinput (text handling)
->>>>>>> original
 images (all of these folders)
 music
 sfx
