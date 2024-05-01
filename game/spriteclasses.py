@@ -135,6 +135,25 @@ class Witch(pygame.sprite.Sprite):
 
         self.channel = pygame.mixer.Channel(1)
 
+        self.ghost_image = pygame.image.load("images/sprites/monster/ghost.png")
+        self.ghost_rect = self.ghost_image.get_rect()
+        self.ghost_done = False
+        self.ghost_alpha = 255
+
+    def mirage(self, pos, player):
+        '''
+        Blitting an image of a ghost, then gradually decreasing its alpha value to make it transparent
+        '''
+        self.ghost_rect.topleft = pos
+        if not self.ghost_done:
+            self.ghost_alpha = 255 - player.rect.left
+        if self.ghost_alpha < 0:
+            self.ghost_alpha = 0
+            self.ghost_done = True
+        self.ghost_image.set_alpha(self.ghost_alpha)
+        self.screen.blit(self.ghost_image, self.ghost_rect)
+        
+
     def scare(self, player):
         #placing the jumpsace slightly to the left of the player
         screen_center_x = self.screen.get_width() // 2
