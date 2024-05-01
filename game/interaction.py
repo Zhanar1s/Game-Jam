@@ -1,7 +1,7 @@
-
+from pygame_textinput import TextInputManager, TextInputVisualizer
+from soundbar import sfx
 import pygame
 import json
-import re
 pygame.init()
 
 with open("text/dialogs.json", "r") as json_data:
@@ -130,3 +130,39 @@ class Friend(Interactable):
         self.snip = self.font.render(self.message[0:self.text_clock // self.text_speed], True, (255,255,255))
 
         screen.blit(self.snip, (10, 510))
+
+
+class Passcode():
+    def __init__(self, screen, rect):
+        self.screen = screen
+        self.rect = pygame.Rect(rect)
+        self.active_rect = pygame.Rect(self.rect.left - 20, self.rect.top, self.rect.width + 20, self.rect.height + 20)
+        self.enable = True
+        self.secret = dialog_data["room5"]["password"]
+
+        self.font = pygame.font.SysFont("superlegendboy", 28)
+
+        self.input_manager = TextInputManager(validator=lambda input: len(input) <= 4 and input.isnumeric())
+        self.input_visualizer = TextInputVisualizer(font_color=(255,255,255),
+                                                    manager=self.input_manager,
+                                                    cursor_blink_interval=2000)
+        
+        self.sfx_channel = pygame.mixer.Channel(1)
+    
+    def interaction(self, player):
+        pygame.draw.rect(self.screen, (255,255,255), self.rect, 4)
+        if player.rect.colliderect(self.active_rect):
+            self.screen.blit(self.input_visualizer.surface, (self.rect.left + 20, self.rect.top + 5))
+
+
+    def unlock(self):
+        if len(self.input_manager.value) == 4:
+            if self.input_manager.value == self.secret:
+                self.sfx_channel.play(sfx["correct"])
+                return True
+            else:
+                self.sfx_channel.play(sfx["wrong"])
+                self.input_manager.value = ""
+        return False
+
+        

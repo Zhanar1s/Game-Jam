@@ -106,7 +106,7 @@ class Player(pygame.sprite.Sprite):
 
     def wall_collision(self, walls):
         self.rect.x += (self.rect.x-self.old_x)
-        wall_hit_list = pygame.sprite.spritecollide(self, walls, False)
+        wall_hit_list = (wall for wall in walls if pygame.sprite.collide_rect(self, wall))
         for wall in wall_hit_list:
             if (self.rect.x - self.old_x) > 0:
                 self.rect.right = wall.rect.left
@@ -114,33 +114,14 @@ class Player(pygame.sprite.Sprite):
                 self.rect.left = wall.rect.right
 
         self.rect.y += (self.rect.y - self.old_y)
-        wall_hit_list = pygame.sprite.spritecollide(self, walls, False)
+        wall_hit_list = (wall for wall in walls if pygame.sprite.collide_rect(self, wall))
+
         for wall in wall_hit_list:
             if (self.rect.y - self.old_y) > 0:
                 self.rect.bottom = wall.rect.top
             elif (self.rect.y - self.old_y) < 0:
                 self.rect.top = wall.rect.bottom
 
-
-class Wall(pygame.sprite.Sprite):
-    walls = pygame.sprite.Group()
-    def __init__(self, topleft, size):
-        super().__init__()
-        self.x = topleft[0]
-        self.y = topleft[1]
-        self.width = size[0]
-        self.height = size[1]
-        self.show = True
-        self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
-        Wall.walls.add(self)
-
-    def show_test(self, screen):
-        for wall in Wall.walls:
-            pygame.draw.rect(screen, (255,255,255), wall.rect, 4)
-
-    @classmethod
-    def delete_all(cls):
-        cls.walls.empty()
 
 class Witch(pygame.sprite.Sprite):
     def __init__(self, screen):
@@ -154,17 +135,39 @@ class Witch(pygame.sprite.Sprite):
 
         self.channel = pygame.mixer.Channel(1)
 
-    def scare(self, player):
-        self.rect.center = (player.rect.center[0] - 400, player.rect.center[1])
-        self.screen.blit(self.image, self.rect)
-        self.channel.play(self.sfx)
-        pygame.display.flip()
-        pygame.time.delay(1000)
-        self.screen.blit(self.scream_image, (0,0))
-        pygame.display.flip()
-        pygame.time.delay((2000))
-        self.scare_trigger = False
+        self.ghost_image = pygame.image.load("images/sprites/monster/ghost.png")
+        self.ghost_rect = self.ghost_image.get_rect()
+        self.ghost_done = False
+        self.ghost_alpha = 255
+
+    def mirage(self, pos, player):
+        '''
+        Blitting an image of a ghost, then gradually decreasing its alpha value to make it transparent
+        '''
+        self.ghost_rect.topleft = pos
+        if not self.ghost_done:
+            self.ghost_alpha = 255 - player.rect.left
+        if self.ghost_alpha < 0:
+            self.ghost_alpha = 0
+            self.ghost_done = True
+        self.ghost_image.set_alpha(self.ghost_alpha)
+        self.screen.blit(self.ghost_image, self.ghost_rect)
         
+
+    def scare(self, player):
+        #placing the jumpsace slightly to the left of the player
+        screen_center_x = self.screen.get_width() // 2
+        screen_center_y = self.screen.get_height() // 2
+        self.rect.center = (screen_center_x, screen_center_y)
+        self.screen.blit(self.image, self.rect)
+        self.channel.play(self.sfx) #playing the sound effect of the screamer
+        pygame.display.flip()
+        pygame.time.delay(1000) #delaying the screen for 1 second
+        self.screen.blit(self.scream_image, (0,0)) #blitting the close-up of the screamer
+        pygame.display.flip()
+        pygame.time.delay((2000))   #delaying the screen for 2 second
+        self.scare_trigger = False
+
 
 
 class Door():
@@ -195,3 +198,128 @@ class Door():
             self.audio_channel.play(sfx["doorclose"])
             self.current_image = self.closed_image
             self.opened = False
+
+
+
+class Wall(pygame.sprite.Sprite):
+    #walls = pygame.sprite.Group()
+
+    walls = {
+        "room1" : [],
+        "room2" : [],
+        "room3" : [],
+        "room4" : [],
+        "room5" : [],
+        "room6" : [],
+        "room7" : [],
+    }
+    def __init__(self, topleft, size, room):
+        super().__init__()
+        self.x = topleft[0]
+        self.y = topleft[1]
+        self.width = size[0]
+        self.height = size[1]
+        self.show = True
+        self.rect = pygame.Rect(self.x, self.y, self.width, self.height)
+        Wall.walls[room].append(self)
+
+    def show_test(self, screen, room):
+        pass
+        #for wall in Wall.walls[room]:
+            #pygame.draw.rect(screen, (255,255,255), wall.rect, 4)
+
+    @classmethod
+    def delete_all(cls, room):
+        cls.walls[room] = []
+
+class Monster(pygame.sprite.Sprite):
+    image = pygame.image.load('images/sprites/monster/monster0.png')
+    '''
+    The Monster class makes a monster that can move towards and follow the player in the game. It helps make the game more exciting by adding a moving challenge.
+    '''
+    def __init__(self, screen, pos):
+        super().__init__()
+        self.screen = screen
+        self.rect = self.image.get_rect(center = pos)
+        self.speed = 2
+        self.laughter_channel = pygame.mixer.Channel(1)
+
+    def update(self, player_pos):
+        # Calculate direction to the player
+
+        player_x, player_y = player_pos
+        monster_x, monster_y = self.rect.center
+
+        delta_x = player_x - monster_x
+        delta_y = player_y - monster_y
+        ranges = (delta_x**2 + delta_y**2)**0.5
+
+        if self.speed > 0:
+            if not self.laughter_channel.get_busy():
+                self.laughter_channel.play(sfx["laughter"], -1)
+        else:
+            self.laughter_channel.stop()
+
+
+        if ranges > 0 and self.speed >0: # Make sure the monster only moves when there is distance available
+            vector_delta_x = delta_x / ranges
+            vector_delta_y = delta_y / ranges
+            self.rect.x += vector_delta_x * self.speed
+            self.rect.y += vector_delta_y * self.speed
+
+class Timer:
+    def __init__(self, screen, font_path, font_size, duration):
+        self.screen = screen
+        self.font = pygame.font.Font(font_path, font_size)
+        self.duration = duration * 1000
+        self.start_time = None
+        self.finished = False
+        self.active = False
+        self.used = False
+        self.timer_channel = pygame.mixer.Channel(2)
+
+    def start(self):
+        if not self.active:
+            self.start_time = pygame.time.get_ticks()
+            self.finished = False
+            self.active = True
+            self.timer_channel.play(sfx["timer"],-1)
+
+    def update(self):
+
+        if self.start_time is not None and not self.finished:
+            current_time = pygame.time.get_ticks()
+            if current_time - self.start_time >= self.duration:
+                self.finished = True
+                self.active = False
+                self.used = True
+                self.timer_channel.stop()
+
+    def draw(self):
+        """
+        Draw the remaining time on the screen if the timer is running.
+        """
+        if self.start_time is not None and not self.finished:
+            remaining_time = max(0, self.duration - (pygame.time.get_ticks() - self.start_time))
+            seconds = remaining_time // 1000
+            time_text = self.font.render(f'{seconds} seconds left', True, (255, 0, 0))
+            self.screen.blit(time_text, (50, 50))  # Adjust position as needed
+
+    def is_finished(self):
+        """
+        Check if the timer has finished.
+        """
+        return self.finished
+
+    def reset(self):
+        if not self.used:
+            """
+            Reset the timer to allow it to be started again.
+            """
+            self.start_time = None
+            self.finished = False
+            self.active = False
+    def stop(self):
+        """Stop the timer and its associated sound."""
+        self.active = False
+        self.timer_channel.stop()

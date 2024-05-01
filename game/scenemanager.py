@@ -10,7 +10,7 @@ screen_height = 720
 
 class Game():
     '''
-    Main game class. 
+    Main game class.
     '''
     def __init__(self):
         pygame.init()
@@ -42,8 +42,8 @@ class Game():
 
         self.bgm_channel = pygame.mixer.Channel(0)
         self.sfx_channel = pygame.mixer.Channel(1)
-        self.special_channel = pygame.mixer.Channel(3)
-        self.special_channel.set_volume(0)
+        self.ambient_channel = pygame.mixer.Channel(5)
+
         '''
         Store scenes in a dict parameter
         '''
@@ -62,13 +62,17 @@ class Game():
             "university" : self.university,
             "finale" : self.finale
         }
-        
+
     def run(self):
         self.bgm_channel.play(music["menusong"], -1)
-        self.special_channel.play(music["limbotheme"], -1)
-        self.special_channel.pause()
+        self.ambient_channel.play(sfx["ambience"], -1)
+        self.ambient_channel.set_volume(1.0)
+        pygame.mixer.Channel(3).play(music["limbotheme"], -1)
+        pygame.mixer.Channel(4).play(music["finalesong"], -1)
+        pygame.mixer.Channel(3).pause()
+        pygame.mixer.Channel(4).pause()
         while True:
-            
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     exit()
@@ -80,17 +84,18 @@ class Game():
             scene = self.scene_manager.get_scene()
             if scene == "limbo":
                 self.bgm_channel.stop()
-                self.special_channel.unpause()
-                self.special_channel.set_volume(self.bgm_channel.get_volume())
+                self.ambient_channel.stop()
+                pygame.mixer.Channel(3).unpause()
             elif scene == "university":
-                self.bgm_channel.stop()
-                self.special_channel.stop()
+                pygame.mixer.Channel(3).stop()
+                pygame.mixer.Channel(4).unpause()
 
             self.scenes[scene].run()
-            
-            
+
+
             pygame.display.update()
             self.clock.tick(60)
+
 
 
 
