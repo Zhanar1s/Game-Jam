@@ -264,7 +264,7 @@ class Timer:
             self.start_time = pygame.time.get_ticks()
             self.finished = False
             self.active = True
-            self.timer_channel.play(sfx["timer"])
+            self.timer_channel.play(sfx["timer"],-1)
 
     def update(self):
 

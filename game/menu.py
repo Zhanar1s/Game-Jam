@@ -35,8 +35,8 @@ class Menu():
                 pygame.quit()
                 exit()
             elif self.play_button.rect.collidepoint(mouse_pos):
-                #self.scene_manager.set_scene("scene5")
-                self.scene_manager.set_scene(self.scene_manager.prev_scene)
+                self.scene_manager.set_scene("scene5")
+                #self.scene_manager.set_scene(self.scene_manager.prev_scene)
 
         self.screen.blit(self.title, self.title.get_rect(center = self.title_rect.center))
 
