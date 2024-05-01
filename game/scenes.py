@@ -100,15 +100,10 @@ class Scene2():
         self.scene_manager = scene_manager
 
         self.bg = pygame.transform.scale(pygame.image.load('images/room/room2.png'), (1280, 720))
-        self.monster = Monster(self.screen, (-60,-60))
         self.player = Player(self.screen, (100,600))
-        self.witch = Witch(self.screen)
         self.paper = Note(1, (400, 500, 64, 64), room="room2", item="papernote1")
         self.lantern = Light(self.screen, (220,220,220), 25, (self.player.rect.x + 97, self.player.rect.y + 152))
         self.dim = Dim(self.screen)
-        self.timer = Timer(screen, 'superlegendboy.ttf', 24, 10) #20 sec timer
-
-
 
         self.wall1 = Wall((0,0), (1280,200), "room2")
         self.border = Interactable(1, (0,0,5,720), "allrooms", "border")
@@ -119,12 +114,6 @@ class Scene2():
     def run(self):
         self.screen.blit(self.bg, (0,0))
 
-        self.timer.update()
-        self.timer.draw()
-        if self.timer.is_finished():
-            self.monster.update(self.player.rect.center)
-            #print("Timer Finished!")
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
@@ -132,30 +121,19 @@ class Scene2():
                 if event.key == pygame.K_ESCAPE:
                     self.scene_manager.set_scene("menu", "scene2")
                 if event.key == pygame.K_z:
-                    if self.paper.rect.colliderect(self.player.rect) and not self.timer.active and not self.timer.used:
+                    if self.paper.rect.colliderect(self.player.rect):
                         self.paper.enable = True
-                        self.timer.start()
 
         keys = pygame.key.get_pressed()
 
         if self.player.rect.x >= self.screen.get_width() - self.player.rect.width - 10:
-            self.timer.stop()
-            self.monster.laughter_channel.stop()
             self.dim.darken(0)
             Wall.delete_all("room2")
             self.scene_manager.set_scene("scene3")
 
-
-
-        if self.monster.rect.colliderect(self.player.rect):
-            self.witch.scare(self.player)
-            exit()
-
-
         self.paper.blit(self.screen)
         self.player.move(keys, self.lantern)
         self.player.blit()
-        self.screen.blit(self.monster.image, self.monster.rect)
         self.dim.darken(100)
         self.lantern.blit((100,100,100), size=5)
         self.paper.interaction(self.player, self.screen, keys)
@@ -347,9 +325,11 @@ class Scene5():
         self.scene_manager = scene_manager
 
         self.bg = pygame.transform.scale(pygame.image.load('images/room/room5.png'), (1280, 720))
+        self.monster = Monster(self.screen, (-60,-60))
         self.paper = Note(1, (750, 420, 64, 64), room="room5", item="papernote4")
         self.passcode = Passcode(self.screen, (1000,350,100,40))
         self.player = Player(self.screen, (50,600))
+        self.witch = Witch(self.screen)
 
         self.paper = Note(1, (700, 600, 64, 64), room="room5", item="papernote4")
         self.cabinet = Interactable(1, (240,280,380,80), room="room5", item="cabinet")
@@ -358,6 +338,7 @@ class Scene5():
 
         self.lantern = Light(self.screen, (220,220,220), 25, (self.player.rect.x + 97, self.player.rect.y + 152))
         self.dim = Dim(self.screen)
+        self.timer = Timer(screen, 'superlegendboy.ttf', 24, 60)
 
         self.wall1 = Wall((0,0), (1280,200), "room5")
         self.wall2 = Wall((250,280),(370,70), "room5")
@@ -374,6 +355,10 @@ class Scene5():
         self.screen.blit(self.bg, (0,0))
         events = pygame.event.get()
         self.passcode.input_visualizer.update(events)
+        self.timer.update()
+        self.timer.draw()
+        if self.timer.is_finished():
+            self.monster.update(self.player.rect.center)
 
         for event in events:
             if event.type == pygame.QUIT:
@@ -382,8 +367,9 @@ class Scene5():
                 if event.key == pygame.K_ESCAPE:
                     self.scene_manager.set_scene("menu", "scene5")
                 if event.key == pygame.K_z:
-                    if self.paper.rect.colliderect(self.player.rect):
+                    if self.paper.rect.colliderect(self.player.rect) and not self.timer.active and not self.timer.used:
                         self.paper.enable = True
+                        self.timer.start()
                         if not self.played:
                             self.bgm_channel.pause()
                             self.sfx_channel.play(sfx["twinkle"])
@@ -399,6 +385,8 @@ class Scene5():
 
         if self.passcode.unlock():
             if self.player.rect.colliderect(self.door.rect) and keys[pygame.K_z]:
+                self.timer.stop()
+                self.monster.laughter_channel.stop()
                 self.door.open_door()
                 self.dim.darken(0)
                 Wall.delete_all("room5")
@@ -407,10 +395,15 @@ class Scene5():
         if not self.sfx_channel.get_busy():
             self.bgm_channel.unpause()
 
+        if self.monster.rect.colliderect(self.player.rect):
+            self.witch.scare(self.player)
+            exit()
+
         self.paper.blit(self.screen)
         self.passcode.interaction(self.player)
 
         self.player.move(keys, self.lantern)
+        self.screen.blit(self.monster.image, self.monster.rect)
         self.door.blit()
         self.player.blit()
 
