@@ -39,9 +39,7 @@ class Scene1():
         self.scene_manager = scene_manager
 
         self.bg = pygame.transform.scale(pygame.image.load('images/room/room1.png'), (1280, 720))
-        #self.monster = Monster(self.screen, (0,0))
         self.player = Player(self.screen, (50,600))
-        #self.witch = Witch(self.screen)
 
         self.wall1 = Wall((0,0), (1280,200), "room1")
         self.table_border = Wall((240,280),(250,80), "room1")
@@ -59,7 +57,6 @@ class Scene1():
 
     def run(self):
         self.screen.blit(self.bg, (0,0))
-        #self.monster.update(self.player.rect.center)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
@@ -79,18 +76,11 @@ class Scene1():
             self.dim.darken(0)
             self.scene_manager.set_scene("scene2")
 
-        #if self.monster.rect.colliderect(self.player.rect):
-            #self.witch.scare(self.player)
-            #exit()
-
         keys = pygame.key.get_pressed()
-        self.door.blit()
+
         self.player.move(keys, self.lantern)
+        self.door.blit()
         self.player.blit()
-
-        #self.screen.blit(self.monster.image, self.monster.rect)
-
-
 
         self.dim.darken(150)
 
@@ -125,6 +115,7 @@ class Scene2():
         #self.bgm_channel = pygame.mixer.Channel(0)
         #self.sfx_channel = pygame.mixer.Channel(1)
 
+
     def run(self):
         self.screen.blit(self.bg, (0,0))
 
@@ -148,10 +139,13 @@ class Scene2():
         keys = pygame.key.get_pressed()
 
         if self.player.rect.x >= self.screen.get_width() - self.player.rect.width - 10:
+            self.timer.stop()
             self.monster.laughter_channel.stop()
             self.dim.darken(0)
             Wall.delete_all("room2")
             self.scene_manager.set_scene("scene3")
+
+
 
         if self.monster.rect.colliderect(self.player.rect):
             self.witch.scare(self.player)
@@ -350,12 +344,15 @@ class Scene5():
         self.scene_manager = scene_manager
 
         self.bg = pygame.transform.scale(pygame.image.load('images/room/room5.png'), (1280, 720))
+        self.monster = Monster(self.screen, (-60,-60))
         self.paper = Note(1, (750, 420, 64, 64), room="room5", item="papernote4")
         self.passcode = Passcode(self.screen, (1000,350,100,40))
         self.player = Player(self.screen, (50,600))
+        self.witch = Witch(self.screen)
 
         self.lantern = Light(self.screen, (220,220,220), 25, (self.player.rect.x + 97, self.player.rect.y + 152))
         self.dim = Dim(self.screen)
+        self.timer = Timer(screen, 'superlegendboy.ttf', 24, 20) #20 sec timer
 
         self.wall1 = Wall((0,0), (1280,200), "room5")
         self.wall2 = Wall((240,280),(380,80), "room5")
@@ -368,6 +365,11 @@ class Scene5():
     def run(self):
         self.screen.blit(self.bg, (0,0))
 
+        self.timer.update()
+        self.timer.draw()
+        if self.timer.is_finished():
+            self.monster.update(self.player.rect.center)
+            #print("Timer Finished!")
         events = pygame.event.get()
         self.passcode.input_visualizer.update(events)
 
@@ -378,8 +380,9 @@ class Scene5():
                 if event.key == pygame.K_ESCAPE:
                     self.scene_manager.set_scene("menu", "scene5")
                 if event.key == pygame.K_z:
-                    if self.paper.rect.colliderect(self.player.rect):
+                    if self.paper.rect.colliderect(self.player.rect) and not self.timer.active and not self.timer.used:
                         self.paper.enable = True
+                        self.timer.start()
                     elif self.border1.rect.colliderect(self.player.rect):
                         self.border1.enable = True
                     elif self.border2.rect.colliderect(self.player.rect):
@@ -389,17 +392,24 @@ class Scene5():
 
         if self.passcode.unlock():
             if self.player.rect.x >= self.screen.get_width() - self.player.rect.width - 10:
+                self.timer.stop()
+                self.monster.laughter_channel.stop()
                 self.dim.darken(0)
                 Wall.delete_all("room5")
                 self.scene_manager.set_scene("scene6")
         else:
             self.border2.interaction(self.player, self.screen, keys)
 
+        if self.monster.rect.colliderect(self.player.rect):
+            self.witch.scare(self.player)
+            exit()
+
         self.paper.blit(self.screen)
         self.passcode.interaction(self.player)
 
         self.player.move(keys, self.lantern)
         self.player.blit()
+        self.screen.blit(self.monster.image, self.monster.rect)
 
         self.dim.darken(150)
         self.lantern.blit((100,100,100), size=5)

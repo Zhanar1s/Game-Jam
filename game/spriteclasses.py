@@ -115,6 +115,7 @@ class Player(pygame.sprite.Sprite):
 
         self.rect.y += (self.rect.y - self.old_y)
         wall_hit_list = (wall for wall in walls if pygame.sprite.collide_rect(self, wall))
+
         for wall in wall_hit_list:
             if (self.rect.y - self.old_y) > 0:
                 self.rect.bottom = wall.rect.top
@@ -204,8 +205,9 @@ class Wall(pygame.sprite.Sprite):
         Wall.walls[room].append(self)
 
     def show_test(self, screen, room):
-        for wall in Wall.walls[room]:
-            pygame.draw.rect(screen, (255,255,255), wall.rect, 4)
+        pass
+        #for wall in Wall.walls[room]:
+            #pygame.draw.rect(screen, (255,255,255), wall.rect, 4)
 
     @classmethod
     def delete_all(cls, room):
@@ -298,3 +300,7 @@ class Timer:
             self.start_time = None
             self.finished = False
             self.active = False
+    def stop(self):
+        """Stop the timer and its associated sound."""
+        self.active = False
+        self.timer_channel.stop()
