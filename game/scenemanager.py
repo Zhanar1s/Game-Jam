@@ -10,7 +10,7 @@ screen_height = 720
 
 class Game():
     '''
-    Main game class. 
+    Main game class.
     '''
     def __init__(self):
         pygame.init()
@@ -62,13 +62,13 @@ class Game():
             "university" : self.university,
             "finale" : self.finale
         }
-        
+
     def run(self):
         self.bgm_channel.play(music["menusong"], -1)
         self.special_channel.play(music["limbotheme"], -1)
         self.special_channel.pause()
         while True:
-            
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     exit()
@@ -87,8 +87,8 @@ class Game():
                 self.special_channel.stop()
 
             self.scenes[scene].run()
-            
-            
+
+
             pygame.display.update()
             self.clock.tick(60)
 
