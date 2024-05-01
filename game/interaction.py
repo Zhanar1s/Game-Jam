@@ -1,4 +1,5 @@
 from pygame_textinput import TextInputManager, TextInputVisualizer
+from soundbar import sfx
 import pygame
 import json
 pygame.init()
@@ -145,6 +146,8 @@ class Passcode():
         self.input_visualizer = TextInputVisualizer(font_color=(255,255,255),
                                                     manager=self.input_manager,
                                                     cursor_blink_interval=2000)
+        
+        self.sfx_channel = pygame.mixer.Channel(1)
     
     def interaction(self, player):
         pygame.draw.rect(self.screen, (255,255,255), self.rect, 4)
@@ -155,8 +158,10 @@ class Passcode():
     def unlock(self):
         if len(self.input_manager.value) == 4:
             if self.input_manager.value == self.secret:
+                self.sfx_channel.play(sfx["correct"])
                 return True
             else:
+                self.sfx_channel.play(sfx["wrong"])
                 self.input_manager.value = ""
         return False
 

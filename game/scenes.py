@@ -328,17 +328,22 @@ class Scene5():
         self.scene_manager = scene_manager
 
         self.bg = pygame.transform.scale(pygame.image.load('images/room/room5.png'), (1280, 720))
-        self.paper = Note(1, (750, 420, 64, 64), room="room5", item="papernote4")
-        self.passcode = Passcode(self.screen, (1000,350,100,40))
         self.player = Player(self.screen, (50,600))
 
+        self.paper = Note(1, (700, 600, 64, 64), room="room5", item="papernote4")
+        self.cabinet = Interactable(1, (240,280,380,80), room="room5", item="cabinet")
+        self.passcode = Passcode(self.screen, (800,260,100,40))
+        self.door = Door(self.screen, (800,80))
+        
         self.lantern = Light(self.screen, (220,220,220), 25, (self.player.rect.x + 97, self.player.rect.y + 152))
         self.dim = Dim(self.screen)
 
         self.wall1 = Wall((0,0), (1280,200), "room5")
-        self.wall2 = Wall((240,280),(380,80), "room5")
+        self.wall2 = Wall((250,280),(370,70), "room5")
         self.border1 = Interactable(1, (0,0,5,720), "allrooms", "border")
-        self.border2 = Interactable(1, (1270,0,5,720), "allrooms", "locked")
+        self.border2 = Interactable(1, (1270,0,5,720), "allrooms", "wall")
+        
+        self.locked = True
 
         self.bgm_channel = pygame.mixer.Channel(0)
         self.sfx_channel = pygame.mixer.Channel(1)
@@ -358,6 +363,9 @@ class Scene5():
                 if event.key == pygame.K_z:
                     if self.paper.rect.colliderect(self.player.rect):
                         self.paper.enable = True
+                        self.sfx_channel.play(sfx["twinkle"])
+                    elif self.cabinet.rect.colliderect(self.player.rect):
+                        self.cabinet.enable = True
                     elif self.border1.rect.colliderect(self.player.rect):
                         self.border1.enable = True
                     elif self.border2.rect.colliderect(self.player.rect):
@@ -366,25 +374,27 @@ class Scene5():
         keys = pygame.key.get_pressed()
 
         if self.passcode.unlock():
-            if self.player.rect.x >= self.screen.get_width() - self.player.rect.width - 10:
+            if self.player.rect.colliderect(self.door.rect) and keys[pygame.K_z]:
+                self.door.open_door()
                 self.dim.darken(0)
                 Wall.delete_all("room5")
                 self.scene_manager.set_scene("scene6")
-        else:
-            self.border2.interaction(self.player, self.screen, keys)
+
 
         self.paper.blit(self.screen)
         self.passcode.interaction(self.player)
 
         self.player.move(keys, self.lantern)
+        self.door.blit()
         self.player.blit()
 
         self.dim.darken(150)
         self.lantern.blit((100,100,100), size=5)
 
         self.paper.interaction(self.player, self.screen, keys)
+        self.cabinet.interaction(self.player, self.screen, keys)
         self.border1.interaction(self.player, self.screen, keys)
-
+        self.border2.interaction(self.player, self.screen, keys)
         
         self.player.wall_collision(Wall.walls["room5"])
 
@@ -396,7 +406,7 @@ class Scene6():
 
         self.bg = pygame.transform.scale(pygame.image.load('images/room/room6.png'), (1280, 720))
         self.paper = Note(1, (700, 500, 64, 64), room="room6", item="papernote5")
-        self.player = Player(self.screen, (50,600))
+        self.player = Player(self.screen, (150,600))
 
 
         self.lantern = Light(self.screen, (220,220,220), 25, (self.player.rect.x + 97, self.player.rect.y + 152))

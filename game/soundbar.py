@@ -8,6 +8,8 @@ sfx = {
     "jumpscare" : pygame.mixer.Sound("sfx/jumpscare.ogg"),
     "metaldoorshut" : pygame.mixer.Sound("sfx/metaldoorshut.wav"),
     "steps" : pygame.mixer.Sound("sfx/steps.wav"),
+    "wrong" : pygame.mixer.Sound("sfx/wrong.wav"),
+    "correct" : pygame.mixer.Sound("sfx/correct.wav"),
     "twinkle" : pygame.mixer.Sound("sfx/twinkle.mp3")
 
 }

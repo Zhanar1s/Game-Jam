@@ -27,6 +27,9 @@
         ],
         "locked":[
             "It is locked"
+        ],
+        "wall":[
+            "It is just a wall"
         ]
     },
     "room1":{
@@ -47,12 +50,7 @@
         "papernote1" : [
             "Note1",
             "Had to take out some pages out of my calc2 notebook to write notes",
-            "Maybe I should leave them as I walk through this basement...",
-            "...like Hensel and Gretel",
-            "I hope that I will be able to return home just like in this story",
-            "I also hope that the WITCH part of this story would not happen to me.....",
-            "I am starting to feel Lonely but not Alone",
-            "I feel some precense"
+            "Maybe I should leave them as I walk through this basement..."
         ]
     },
     "room3":{
@@ -82,14 +80,26 @@
             "Sometimes I start hearing the sound of a piano......",
             "She also played the piano....",
             "She was very talented unlike me..........",
-            "She also loved drawing.",
-            "And she would never get tired. She was so excited about life",
+            "She would never get tired. She was so excited about life",
             "She would always smile despite anything",
             "I still remember her playing the piano for the first time.",
             "She would play Twinkle Twinkle Little Star at first",
             "I remember her being so excited when she learned this melody",
             "I think it goes like C-G-A-G.....",
             ".................(The rest is unclear)"
+        ],
+        "cabinet" : [
+            "You open up a dusty old cabinet.",
+            "You see a bunch of paper sheets all over the shelves ",
+            "With pencils and markers accompanying them",
+            "All of these items were worn out by time.",
+            "In the next instant you see a vibrant yellow sketchbook",
+            "Once you open it, you see..............",
+            "Music notations practice and some scribbles on the hard cover that go",
+            "'C - Do - 1'",
+            "'D - Re - 2'",
+            "'E - Mi - 3...'",
+            "The rest is either illegible or destroyed by time"
         ],
         "password" : "1565"
     },

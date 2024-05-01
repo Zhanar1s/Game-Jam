@@ -94,6 +94,7 @@ class Game():
 
 
 
+
 class Scene_manager():
     '''
     A class that manages the current scene. Used to switch and return the current scene
