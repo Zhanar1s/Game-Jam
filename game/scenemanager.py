@@ -42,6 +42,7 @@ class Game():
 
         self.bgm_channel = pygame.mixer.Channel(0)
         self.sfx_channel = pygame.mixer.Channel(1)
+        self.ambient_channel = pygame.mixer.Channel(5)
 
         '''
         Store scenes in a dict parameter
@@ -64,6 +65,8 @@ class Game():
 
     def run(self):
         self.bgm_channel.play(music["menusong"], -1)
+        self.ambient_channel.play(sfx["ambience"], -1)
+        self.ambient_channel.set_volume(1.0)
         pygame.mixer.Channel(3).play(music["limbotheme"], -1)
         pygame.mixer.Channel(4).play(music["finalesong"], -1)
         pygame.mixer.Channel(3).pause()
@@ -81,6 +84,7 @@ class Game():
             scene = self.scene_manager.get_scene()
             if scene == "limbo":
                 self.bgm_channel.stop()
+                self.ambient_channel.stop()
                 pygame.mixer.Channel(3).unpause()
             elif scene == "university":
                 pygame.mixer.Channel(3).stop()
