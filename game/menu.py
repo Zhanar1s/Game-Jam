@@ -35,7 +35,7 @@ class Menu():
                 pygame.quit()
                 exit()
             elif self.play_button.rect.collidepoint(mouse_pos):
-                
+                # self.scene_manager.set_scene("scene7")
                 self.scene_manager.set_scene(self.scene_manager.prev_scene)
 
         self.screen.blit(self.title, self.title.get_rect(center = self.title_rect.center))
@@ -43,7 +43,7 @@ class Menu():
         for button in Button.main_buttons:
             button.show(self.screen)
             button.on_hover(self.screen, mouse_pos)
-        
+
 
 class Settings():
     def __init__(self, screen, scene_manager):
@@ -60,7 +60,7 @@ class Settings():
         self.back = pygame.image.load("images/buttons/back.png")
         self.back_rect = self.back.get_rect(center = (100,40))
 
-        #audio settings 
+        #audio settings
         self.audio_rect = pygame.Rect(390, 100, 100, 60)
         self.audio_text = self.settings_font.render("Audio settings", True, (150,0,0))
         self.sfx_rect = pygame.Rect(520, 150, 100, 30)
@@ -73,14 +73,14 @@ class Settings():
         self.credits_rect = pygame.Rect(500, 450, 100, 60)
         self.credits = self.settings_font.render("Credits", True, (150,0,0))
 
-        
+
 
     def run(self):
         pressed = pygame.mouse.get_pressed()
         mouse_pos = pygame.mouse.get_pos()
 
         self.screen.fill((0,0,0))
-        
+
         #interations with sliders
         if self.sfx_slider.slider_rect.collidepoint(mouse_pos) and pressed[0]:
             self.sfx_slider.move(mouse_pos)

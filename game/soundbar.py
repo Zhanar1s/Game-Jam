@@ -8,13 +8,16 @@ sfx = {
     "jumpscare" : pygame.mixer.Sound("sfx/jumpscare.ogg"),
     "metaldoorshut" : pygame.mixer.Sound("sfx/metaldoorshut.wav"),
     "steps" : pygame.mixer.Sound("sfx/steps.wav"),
-    "twinkle" : pygame.mixer.Sound("sfx/twinkle.mp3")
+    "wrong" : pygame.mixer.Sound("sfx/wrong.wav"),
+    "correct" : pygame.mixer.Sound("sfx/correct.wav"),
+    "twinkle" : pygame.mixer.Sound("sfx/twinkle.mp3"),
+    "laughter" : pygame.mixer.Sound("sfx/laughter.mp3"),
+    "timer" : pygame.mixer.Sound("sfx/timer.mp3")
 
 }
 
 music = {
     "menusong" : pygame.mixer.Sound("music/menusong.mp3"),
-    "limbotheme" : pygame.mixer.Sound("music/limbotheme.mp3")
+    "limbotheme" : pygame.mixer.Sound("music/limbotheme.mp3"),
+    "finalesong" : pygame.mixer.Sound("music/finalesong.mp3")
 }
-
-        
