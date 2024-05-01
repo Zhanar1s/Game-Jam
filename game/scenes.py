@@ -106,7 +106,7 @@ class Scene2():
         self.paper = Note(1, (400, 500, 64, 64), room="room2", item="papernote1")
         self.lantern = Light(self.screen, (220,220,220), 25, (self.player.rect.x + 97, self.player.rect.y + 152))
         self.dim = Dim(self.screen)
-        self.timer = Timer(screen, 'superlegendboy.ttf', 24, 20) #20 sec timer
+        self.timer = Timer(screen, 'superlegendboy.ttf', 24, 30) #20 sec timer
 
 
 
@@ -355,7 +355,7 @@ class Scene5():
         
         self.lantern = Light(self.screen, (220,220,220), 25, (self.player.rect.x + 97, self.player.rect.y + 152))
         self.dim = Dim(self.screen)
-        self.timer = Timer(screen, 'superlegendboy.ttf', 24, 20) #20 sec timer
+        self.timer = Timer(screen, 'superlegendboy.ttf', 24, 80) #20 sec timer
 
         self.wall1 = Wall((0,0), (1280,200), "room5")
         self.wall2 = Wall((250,280),(370,70), "room5")
