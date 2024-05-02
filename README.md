@@ -20,7 +20,7 @@ If you are on Mac or Linux, you probably know what you are doing:)
 python main.py
 ```
 ### Run the game
-1. Customization if the settings tab: volume of sound effects and music
+1. Customization in the settings tab: volume of sound effects and music
 2. Press Play to play
 
 ### Controls
